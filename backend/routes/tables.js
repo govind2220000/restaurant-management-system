@@ -115,16 +115,74 @@ router.put('/:id', async (req, res) => {
 
 // Delete a table
 router.delete('/:id', async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  
   try {
-    const table = await Table.findByIdAndDelete(req.params.id);
-    if (!table) {
+    // Find the table to be deleted
+    const tableToDelete = await Table.findById(req.params.id).session(session);
+    
+    if (!tableToDelete) {
+      await session.abortTransaction();
+      session.endSession();
       return res.status(404).json({ message: 'Table not found' });
     }
-    res.json({ message: 'Table deleted successfully' });
+    
+    // Check if table is currently in use
+    if (tableToDelete.isReserved) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(400).json({ message: 'Cannot delete a table that is currently reserved' });
+    }
+    
+    // Get the table number of the deleted table
+    const deletedTableNumber = tableToDelete.tableNumber;
+    console.log(`Deleting table ${deletedTableNumber}`);
+    
+    // Delete the table
+    await Table.findByIdAndDelete(req.params.id).session(session);
+    
+    // Find all tables with higher numbers to reorder them
+    const tablesForReordering = await Table.find({
+      tableNumber: { $gt: deletedTableNumber }
+    }).sort({ tableNumber: 1 }).session(session);
+    
+    console.log(`Found ${tablesForReordering.length} tables to reorder after deleting ${deletedTableNumber}`);
+    
+    // Reorder the remaining tables
+    for (const table of tablesForReordering) {
+      // Extract the numeric part of the current table number
+      const currentMatch = table.tableNumber.match(/T(\d+)/);
+      
+      if (currentMatch && currentMatch[1]) {
+        const currentNumber = parseInt(currentMatch[1]);
+        // Decrement the number and format with leading zeros
+        const newNumber = (currentNumber - 1).toString().padStart(2, '0');
+        const newTableNumber = `T${newNumber}`;
+        
+        console.log(`Renumbering table from ${table.tableNumber} to ${newTableNumber}`);
+        
+        // Update the table number
+        table.tableNumber = newTableNumber;
+        await table.save({ session });
+      }
+    }
+    
+    await session.commitTransaction();
+    session.endSession();
+    
+    res.json({ 
+      message: 'Table deleted successfully',
+      deletedTable: deletedTableNumber,
+      reorderedTables: tablesForReordering.length
+    });
   } catch (err) {
+    await session.abortTransaction();
+    session.endSession();
     res.status(500).json({ error: err.message });
   }
 });
 
 module.exports = router;
+
 
