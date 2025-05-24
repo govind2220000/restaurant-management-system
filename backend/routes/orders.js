@@ -292,8 +292,6 @@ async function completeOrder(orderId) {
         // Increment ordersHandled when order is completed
         chef.ordersHandled += 1;
         
-        console.log(`Chef ${chef.name} now has ${chef.ordersHandled} orders handled after completing order ${order.orderNumber}`);
-        
         // Remove order from chef's current orders
         chef.currentOrders = chef.currentOrders.filter(
           currentOrderId => currentOrderId.toString() !== order._id.toString()
@@ -331,9 +329,20 @@ async function completeOrder(orderId) {
     
     // Handle order completion based on type
     if (order.type === 'Dine In' && order.table) {
-      // For Dine In orders, don't free up the table yet
-      // The table will be freed when the order is marked as Served
-      console.log(`Dine In order ${order.orderNumber} completed, table remains reserved until served`);
+      // For Dine In orders, immediately free up the table
+      console.log(`Dine In order ${order.orderNumber} completed, freeing table immediately`);
+      
+      // Free up the table immediately
+      await Table.findByIdAndUpdate(
+        order.table,
+        {
+          isReserved: false,
+          currentOrder: null
+        },
+        { session }
+      );
+      
+      console.log(`Table for order ${order.orderNumber} has been freed`);
     } else if (order.type === 'Take Away') {
       // For Take Away orders, mark as ready for pickup
       console.log(`Take Away order ${order.orderNumber} completed, ready for pickup`);
@@ -449,7 +458,7 @@ router.put('/:id/status', async (req, res) => {
         order.table,
         {
           isReserved: false,
-          currentOrder: null
+          
         },
         { session }
       );
@@ -541,6 +550,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 
