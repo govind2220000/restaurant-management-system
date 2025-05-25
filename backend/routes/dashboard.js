@@ -17,7 +17,7 @@ router.get('/analytics', async (req, res) => {
     ]);
     const totalRevenue = revenueData.length > 0 ? revenueData[0].total : 0;
     
-    // Count unique clients
+    // Count unique clients by phone number
     const uniqueClients = await Order.distinct('customer.phone');
     const totalClients = uniqueClients.length;
     
@@ -120,5 +120,6 @@ router.get('/analytics', async (req, res) => {
 });
 
 module.exports = router;
+
 
 
