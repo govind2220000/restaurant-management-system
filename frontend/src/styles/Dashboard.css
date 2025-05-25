@@ -7,12 +7,14 @@ body {
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
   background-color: #f8fafc;
+  overflow: hidden; /* Prevent page-level scrolling */
 }
 
 .dashboard-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh; /* Fixed viewport height */
   background-color: #f8fafc;
+  overflow: hidden; /* Prevent page-level scrolling */
 }
 
 /* Sidebar Navigation */
@@ -75,11 +77,17 @@ body {
   flex: 1;
   padding: 20px;
   margin-left: 20px;
+  height: 100vh; /* Fixed height to viewport */
+  overflow-y: auto; /* Allow internal scrolling if needed */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header with Search */
 .content-header {
   margin-bottom: 30px;
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .search-container {
@@ -122,15 +130,21 @@ body {
 .analytics-section {
   background-color: white;
   border-radius: 32px;
-  padding: 30px;
+  padding: 10px 30px 0px 30px; /* Reduced bottom padding from 30px to 20px */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  flex: 1; /* Take remaining space */
+  overflow: hidden; /* Remove scrolling from analytics section */
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 140px); /* Account for header and padding */
 }
 
 .section-title {
   font-size: 24px;
   font-weight: 600;
   color: #1e293b;
-  margin: 0 0 30px 0;
+  margin: 0 0 15px 0; /* Reduced margin from 30px to 15px */
+  flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 /* Stats Cards - Responsive Grid Layout */
@@ -138,8 +152,9 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin from 20px to 15px */
   max-width: 100%;
+  flex-shrink: 0; /* Prevent stats from shrinking */
 }
 
 .stat-card {
@@ -232,6 +247,9 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 30px;
+  height: 368px; /* Fixed height to prevent overlap */
+  flex-shrink: 0; /* Prevent charts from shrinking */
+  overflow: hidden; /* Prevent overflow */
 }
 
 .chart-container {
@@ -240,7 +258,11 @@ body {
   border-radius: 8px;
   padding: 20px;
   height: 368px;
-  overflow: hidden;
+  max-height: 368px; /* Ensure fixed height */
+  overflow-y: auto; /* Allow internal scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  display: flex;
+  flex-direction: column;
 }
 
 .chart-header {
@@ -502,9 +524,9 @@ body {
 .table-grid-container {
   background-color: transparent;
   border-radius: 0;
-  margin: 0 17px 20px 17px;
+  margin: 0 17px 0px 17px;
   padding: 0;
-  height: 218px;
+  height: auto;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #d9d9d9 transparent;
@@ -604,8 +626,12 @@ body {
 
 /* Chef Table Section - Matching Figma Design */
 .chef-table-section {
-  margin: 30px 0;
+  margin: 15px 0 0 0; /* Further reduced top margin for more space */
   width: 100%;
+  flex: 1; /* Take remaining space */
+  min-height: 0; /* Allow shrinking */
+  display: flex;
+  flex-direction: column;
 }
 
 .chef-table-container {
@@ -613,10 +639,11 @@ body {
   border-radius: 8px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  max-height: 300px;
-  overflow-y: auto;
+  flex: 1; /* Take remaining space in chef table section */
+  overflow-y: auto; /* Allow internal scrolling */
   scrollbar-width: thin;
   scrollbar-color: #d9d9d9 transparent;
+  min-height: 200px; /* Minimum height for usability */
 }
 
 .chef-table-container::-webkit-scrollbar {
@@ -842,6 +869,8 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 30px;
+    height: 368px; /* Fixed height to prevent overlap */
+    flex-shrink: 0; /* Prevent charts from shrinking */
   }
 
   .chart-container {
@@ -876,8 +905,8 @@ body {
 
   /* Table Booking responsive - Large screens */
   .table-grid-container {
-    height: 218px;
-    margin: 0 17px 20px 17px;
+    height: auto;
+    margin: 0 17px 0px 17px;
   }
 
   .table-grid {
@@ -932,6 +961,8 @@ body {
   .charts-section {
     grid-template-columns: 1fr;
     gap: 25px;
+    height: auto; /* Allow height adjustment for single column */
+    flex-shrink: 0; /* Prevent charts from shrinking */
   }
 
   /* Chart bars responsive - Medium screens */
@@ -955,8 +986,8 @@ body {
 
   /* Table Booking responsive - Medium screens */
   .table-grid-container {
-    height: 200px;
-    margin: 0 12px 20px 12px;
+    height: auto;
+    margin: 0 12px 0px 12px;
   }
 
   .table-grid {
@@ -976,8 +1007,33 @@ body {
   }
 
   /* Chef Table responsive adjustments - Medium screens */
+  .chef-table-section {
+    margin: 12px 0 0 0; /* Further reduced margin for medium screens */
+  }
+
   .chef-table-container {
-    max-height: 280px;
+    min-height: 200px; /* Ensure minimum usable height */
+    flex: 1; /* Take remaining space in chef table section */
+    overflow-y: auto; /* Enable internal scrolling */
+    scrollbar-width: thin;
+    scrollbar-color: #d9d9d9 transparent;
+  }
+
+  .chef-table-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .chef-table-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chef-table-container::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 3px;
+  }
+
+  .chef-table-container::-webkit-scrollbar-thumb:hover {
+    background-color: #bababa;
   }
 
   .chef-header-cell {
@@ -998,8 +1054,14 @@ body {
 
 /* Small screens (≤768px) - Single-column layout */
 @media (max-width: 768px) {
+  body {
+    overflow: hidden; /* Maintain no-scroll behavior */
+  }
+
   .dashboard-layout {
     flex-direction: column;
+    height: 100vh; /* Maintain viewport height */
+    overflow: hidden; /* Prevent page scrolling */
   }
 
   .sidebar {
@@ -1008,6 +1070,7 @@ body {
     border-radius: 20px;
     margin: 10px;
     padding: 15px 0;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
   }
 
   .nav-items {
@@ -1018,11 +1081,19 @@ body {
   .main-content {
     margin-left: 0;
     padding: 10px;
+    height: calc(100vh - 100px); /* Account for sidebar height */
+    overflow-y: auto; /* Allow internal scrolling */
+    flex: 1;
   }
 
   .analytics-section {
-    padding: 20px;
+    padding: 20px 20px 15px 20px; /* Reduced bottom padding for mobile */
     border-radius: 20px;
+    max-height: calc(100vh - 140px); /* Maintain height constraints */
+    overflow: hidden; /* Remove scrolling from analytics section */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   /* Stats Grid - Single-column layout */
@@ -1076,11 +1147,17 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
+    height: auto; /* Allow height adjustment for single column */
+    flex-shrink: 0; /* Prevent charts from shrinking */
   }
 
   .chart-container {
-    height: auto;
+    height: 280px;
+    max-height: 280px; /* Fixed height for mobile */
     min-height: 280px;
+    overflow-y: auto; /* Allow internal scrolling */
+    display: flex;
+    flex-direction: column;
   }
 
   /* Chart bars responsive - Small screens */
@@ -1105,9 +1182,9 @@ body {
 
   /* Table Booking responsive - Small screens */
   .table-grid-container {
-    height: 180px;
+    height: auto;
     padding: 0;
-    margin: 0 10px 15px 10px;
+    margin: 0 10px 0px 10px;
   }
 
   .table-grid {
@@ -1138,11 +1215,16 @@ body {
 
   /* Chef Table responsive adjustments */
   .chef-table-section {
-    margin: 20px 0;
+    margin: 10px 0 0 0; /* Further reduced margin for mobile */
+    flex: 1; /* Take remaining space */
+    min-height: 0; /* Allow shrinking */
+    display: flex;
+    flex-direction: column;
   }
 
   .chef-table-container {
-    max-height: 250px;
+    flex: 1; /* Take remaining space */
+    min-height: 150px; /* Minimum height for mobile usability */
   }
 
   .chef-header-cell {
@@ -1223,8 +1305,12 @@ body {
   }
 
   /* Chef Table responsive adjustments - Extra small screens */
+  .chef-table-section {
+    margin: 8px 0 0 0; /* Minimal margin for extra small screens */
+  }
+
   .chef-table-container {
-    max-height: 200px;
+    min-height: 120px; /* Minimum height for extra small screens */
   }
 
   .chef-header-cell {
