@@ -16,9 +16,18 @@ const orderSchema = new mongoose.Schema({
   table: { type: mongoose.Schema.Types.ObjectId, ref: 'Table' },
   chef: { type: mongoose.Schema.Types.ObjectId, ref: 'Chef' },
   customer: {
-    name: String,
-    phone: String,
-    address: String
+    name: { 
+      type: String,
+      required: [function() { return this.type === 'Take Away'; }, 'Customer name is required for Take Away orders']
+    },
+    phone: { 
+      type: Number,
+      required: [function() { return this.type === 'Take Away'; }, 'Phone number is required for Take Away orders']
+    },
+    address: { 
+      type: String,
+      required: [function() { return this.type === 'Take Away'; }, 'Address is required for Take Away orders']
+    }
   },
   cookingInstructions: String,
   subtotal: { type: Number, required: true },
@@ -31,5 +40,6 @@ const orderSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);
+
 
 
