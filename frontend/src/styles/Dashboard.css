@@ -923,6 +923,26 @@ body {
 
 /* Medium screens (769px-1200px) - 2-column stats, single-column charts */
 @media (max-width: 1200px) and (min-width: 769px) {
+  /* Enable page-level scrolling for medium screens */
+  body {
+    overflow: auto; /* Allow page scrolling */
+  }
+
+  .dashboard-layout {
+    height: auto; /* Allow height to grow */
+    min-height: 100vh; /* Minimum viewport height */
+    overflow: visible; /* Allow content overflow */
+  }
+
+  .main-content {
+    height: auto; /* Allow height to grow */
+    overflow: visible; /* Allow content overflow */
+  }
+
+  .analytics-section {
+    max-height: none; /* Remove height constraints */
+    overflow: visible; /* Allow content overflow */
+  }
   /* Stats Grid - 2-column layout */
   .stats-grid {
     display: grid;
@@ -1008,12 +1028,14 @@ body {
 
   /* Chef Table responsive adjustments - Medium screens */
   .chef-table-section {
-    margin: 12px 0 0 0; /* Further reduced margin for medium screens */
+    margin: 30px 0; /* Restore normal margins for medium screens */
+    flex: none; /* Remove flex constraints */
+    min-height: auto; /* Remove height constraints */
+    display: block; /* Use normal block layout */
   }
 
   .chef-table-container {
-    min-height: 200px; /* Ensure minimum usable height */
-    flex: 1; /* Take remaining space in chef table section */
+    max-height: 400px; /* Set reasonable max height */
     overflow-y: auto; /* Enable internal scrolling */
     scrollbar-width: thin;
     scrollbar-color: #d9d9d9 transparent;
@@ -1054,14 +1076,16 @@ body {
 
 /* Small screens (≤768px) - Single-column layout */
 @media (max-width: 768px) {
+  /* Enable page-level scrolling for small screens */
   body {
-    overflow: hidden; /* Maintain no-scroll behavior */
+    overflow: auto; /* Allow page scrolling */
   }
 
   .dashboard-layout {
     flex-direction: column;
-    height: 100vh; /* Maintain viewport height */
-    overflow: hidden; /* Prevent page scrolling */
+    height: auto; /* Allow height to grow */
+    min-height: 100vh; /* Minimum viewport height */
+    overflow: visible; /* Allow content overflow */
   }
 
   .sidebar {
@@ -1081,19 +1105,18 @@ body {
   .main-content {
     margin-left: 0;
     padding: 10px;
-    height: calc(100vh - 100px); /* Account for sidebar height */
-    overflow-y: auto; /* Allow internal scrolling */
+    height: auto; /* Allow height to grow */
+    overflow: visible; /* Allow content overflow */
     flex: 1;
   }
 
   .analytics-section {
     padding: 20px 20px 15px 20px; /* Reduced bottom padding for mobile */
     border-radius: 20px;
-    max-height: calc(100vh - 140px); /* Maintain height constraints */
-    overflow: hidden; /* Remove scrolling from analytics section */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    max-height: none; /* Remove height constraints */
+    overflow: visible; /* Allow content overflow */
+    flex: none; /* Remove flex constraints */
+    display: block; /* Use normal block layout */
   }
 
   /* Stats Grid - Single-column layout */
@@ -1215,16 +1238,17 @@ body {
 
   /* Chef Table responsive adjustments */
   .chef-table-section {
-    margin: 10px 0 0 0; /* Further reduced margin for mobile */
-    flex: 1; /* Take remaining space */
-    min-height: 0; /* Allow shrinking */
-    display: flex;
-    flex-direction: column;
+    margin: 20px 0; /* Restore normal margins for mobile */
+    flex: none; /* Remove flex constraints */
+    min-height: auto; /* Remove height constraints */
+    display: block; /* Use normal block layout */
   }
 
   .chef-table-container {
-    flex: 1; /* Take remaining space */
-    min-height: 150px; /* Minimum height for mobile usability */
+    max-height: 300px; /* Set reasonable max height for mobile */
+    overflow-y: auto; /* Enable internal scrolling */
+    scrollbar-width: thin;
+    scrollbar-color: #d9d9d9 transparent;
   }
 
   .chef-header-cell {
@@ -1306,11 +1330,12 @@ body {
 
   /* Chef Table responsive adjustments - Extra small screens */
   .chef-table-section {
-    margin: 8px 0 0 0; /* Minimal margin for extra small screens */
+    margin: 15px 0; /* Normal margins for extra small screens */
   }
 
   .chef-table-container {
-    min-height: 120px; /* Minimum height for extra small screens */
+    max-height: 250px; /* Set reasonable max height for extra small screens */
+    overflow-y: auto; /* Enable internal scrolling */
   }
 
   .chef-header-cell {
