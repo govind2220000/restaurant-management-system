@@ -138,7 +138,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   max-width: 100%;
 }
 
@@ -481,6 +481,7 @@ body {
   font-weight: 300;
   font-size: 10px;
   color: #000000;
+  margin-bottom: 10px;
 }
 
 .legend-color {
@@ -499,13 +500,12 @@ body {
 }
 
 .table-grid-container {
-  background-color: white;
-  border-radius: 10px;
+  background-color: transparent;
+  border-radius: 0;
   margin: 0 17px 20px 17px;
-  padding: 15px;
-  max-height: 220px;
+  padding: 0;
+  height: 218px;
   overflow-y: auto;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   scrollbar-width: thin;
   scrollbar-color: #d9d9d9 transparent;
 }
@@ -528,28 +528,43 @@ body {
 }
 
 .table-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 4.77px;
   width: 100%;
 }
 
+.table-row {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  justify-content: flex-start;
+}
+
 .table-item {
-  aspect-ratio: 1;
+  width: 52px;
+  height: 50px;
   border: 0.37px solid #bababa;
   border-radius: 2.2px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 8.8px;
+  font-size: 8.816px;
   line-height: 1.5;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 39px;
-  padding: 3.67px 9.54px;
+ 
+  margin-right: 6px;
+  flex-shrink: 0;
+  gap: 3.67px;
+}
+
+.table-item:nth-child(7n) {
+  margin-right: 0;
 }
 
 .table-item.available {
@@ -571,10 +586,20 @@ body {
 
 .table-number {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 8.8px;
+  font-weight: 700;
+  font-size: 18px;
   line-height: 1.5;
   text-align: center;
+  color: inherit;
+}
+
+.table-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: center;
+  color: #374151;
 }
 
 /* Chef Table Section */
@@ -789,7 +814,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     max-width: 100%;
 
   }
@@ -846,19 +871,19 @@ body {
 
   /* Table Booking responsive - Large screens */
   .table-grid-container {
-    max-height: 220px;
-    padding: 15px;
+    height: 218px;
+    margin: 0 17px 20px 17px;
   }
 
   .table-grid {
-    grid-template-columns: repeat(7, 1fr);
     gap: 4.77px;
   }
 
   .table-item {
-    min-height: 39px;
-    font-size: 8.8px;
-    padding: 3.67px 9.54px;
+    width: 52px;
+    height: 50px;
+    font-size: 9px;
+    margin-right: 6px;
   }
 }
 
@@ -869,7 +894,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     max-width: 800px;
   }
 
@@ -925,19 +950,20 @@ body {
 
   /* Table Booking responsive - Medium screens */
   .table-grid-container {
-    max-height: 200px;
-    padding: 12px;
+    height: 200px;
+    margin: 0 12px 20px 12px;
   }
 
   .table-grid {
-    grid-template-columns: repeat(6, 1fr);
     gap: 4px;
   }
 
   .table-item {
-    min-height: 35px;
-    font-size: 8px;
-    padding: 3px 8px;
+    width: 45px;
+    height: 40px;
+    font-size: 8.5px;
+    
+    margin-right: 5px;
   }
 
   .table-number {
@@ -1054,21 +1080,22 @@ body {
 
   /* Table Booking responsive - Small screens */
   .table-grid-container {
-    max-height: 180px;
-    padding: 10px;
+    height: 180px;
+    padding: 0;
     margin: 0 10px 15px 10px;
   }
 
   .table-grid {
-    grid-template-columns: repeat(5, 1fr);
     gap: 3px;
   }
 
   .table-item {
-    min-height: 30px;
-    font-size: 7px;
-    padding: 2px 6px;
+    width: 38px;
+    height: 35px;
+    font-size: 7.5px;
+   
     border-radius: 2px;
+    margin-right: 3px;
   }
 
   .table-number {

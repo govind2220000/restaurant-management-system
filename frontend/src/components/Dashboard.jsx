@@ -351,7 +351,8 @@ function Dashboard() {
             <div className="chart-container table-booking">
               <div className="chart-header">
                 <h3>Tables</h3>
-                <div className="table-legend">
+              </div>
+              <div className="table-legend">
                 <div className="legend-item">
                   <div className="legend-color reserved"></div>
                   <span>Reserved</span>
@@ -361,18 +362,22 @@ function Dashboard() {
                   <span>Available</span>
                 </div>
               </div>
-              </div>
-              
               <div className="table-grid-container">
                 <div className="table-grid">
-                  {dashboardData.tables.map((table) => (
-                    <div
-                      key={table.id}
-                      className={`table-item ${table.status}`}
-                    >
-                      <span className="table-number">
-                        Table<br />{table.id.toString().padStart(2, '0')}
-                      </span>
+                  {Array.from({ length: Math.ceil(dashboardData.tables.length / 7) }, (_, rowIndex) => (
+                    <div key={rowIndex} className="table-row">
+                      {dashboardData.tables
+                        .slice(rowIndex * 7, (rowIndex + 1) * 7)
+                        .map((table) => (
+                          <div
+                            key={table.id}
+                            className={`table-item ${table.status}`}
+                          >
+                            <span className="table-number">
+                              <span className="table-label">Table</span><br />{table.id.toString().padStart(2, '0')}
+                            </span>
+                          </div>
+                        ))}
                     </div>
                   ))}
                 </div>
@@ -387,9 +392,6 @@ function Dashboard() {
           {/* Chef Table Section */}
           <div className="chef-table-section">
             <div className="chef-table-container">
-              <div className="chef-table-header">
-                <h3>Chef Performance</h3>
-              </div>
               <div className="chef-table">
                 <div className="chef-table-head">
                   <div className="chef-header-cell">Chef Name</div>
