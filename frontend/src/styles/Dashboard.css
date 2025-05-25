@@ -557,7 +557,7 @@ body {
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
- 
+
   margin-right: 6px;
   flex-shrink: 0;
   gap: 3.67px;
@@ -602,94 +602,99 @@ body {
   color: #374151;
 }
 
-/* Chef Table Section */
+/* Chef Table Section - Matching Figma Design */
 .chef-table-section {
   margin: 30px 0;
+  width: 100%;
 }
 
 .chef-table-container {
-  background-color: white;
-  border: 2px solid #d9d9d9;
+  background-color: #ffffff;
   border-radius: 8px;
-  padding: 20px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d9d9d9 transparent;
 }
 
-.chef-table-header {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #d9d9d9;
+.chef-table-container::-webkit-scrollbar {
+  width: 6px;
 }
 
-.chef-table-header h3 {
-  font-size: 16px;
-  font-weight: 500;
-  color: #6e6e6e;
-  margin: 0;
+.chef-table-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chef-table-container::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 3px;
+}
+
+.chef-table-container::-webkit-scrollbar-thumb:hover {
+  background-color: #bababa;
 }
 
 .chef-table {
   width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .chef-table-head {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 12px 0;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .chef-header-cell {
-  font-size: 14px;
-  font-weight: 600;
-  color: #374151;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #dddddd;
+  padding: 12px 22px;
   text-align: left;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.15;
+  color: #000000;
+  position: relative;
 }
 
-.chef-table-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.chef-header-cell:first-child {
+  width: 289px;
+}
+
+.chef-header-cell:last-child {
+  width: auto;
 }
 
 .chef-table-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 12px 0;
-  border-bottom: 1px solid #f1f5f9;
   transition: background-color 0.2s ease;
 }
 
 .chef-table-row:hover {
-  background-color: #f8fafc;
-}
-
-.chef-table-row:last-child {
-  border-bottom: none;
+  background-color: #f8f9fa;
 }
 
 .chef-cell {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: #374151;
+  border-bottom: 1px solid #dddddd;
+  padding: 13px 22px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.15;
+  color: #000000;
+  vertical-align: middle;
 }
 
-.chef-avatar {
-  font-size: 20px;
+.chef-name-cell {
+  width: 289px;
 }
 
-.chef-name {
-  font-weight: 500;
-}
-
-.chef-orders {
-  font-weight: 600;
-  color: #1e293b;
+.chef-orders-cell {
+  width: auto;
 }
 
 /* Order Summary - Matching Figma Design */
@@ -962,12 +967,32 @@ body {
     width: 45px;
     height: 40px;
     font-size: 8.5px;
-    
+
     margin-right: 5px;
   }
 
   .table-number {
     font-size: 8px;
+  }
+
+  /* Chef Table responsive adjustments - Medium screens */
+  .chef-table-container {
+    max-height: 280px;
+  }
+
+  .chef-header-cell {
+    padding: 11px 18px;
+    font-size: 15px;
+  }
+
+  .chef-cell {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+
+  .chef-header-cell:first-child,
+  .chef-name-cell {
+    width: 250px;
   }
 }
 
@@ -1093,7 +1118,7 @@ body {
     width: 38px;
     height: 35px;
     font-size: 7.5px;
-   
+
     border-radius: 2px;
     margin-right: 3px;
   }
@@ -1114,6 +1139,25 @@ body {
   /* Chef Table responsive adjustments */
   .chef-table-section {
     margin: 20px 0;
+  }
+
+  .chef-table-container {
+    max-height: 250px;
+  }
+
+  .chef-header-cell {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .chef-cell {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .chef-header-cell:first-child,
+  .chef-name-cell {
+    width: 200px;
   }
 
   /* Order Summary responsive adjustments */
@@ -1176,6 +1220,26 @@ body {
   .order-summary-legend {
     margin-top: 20px;
     gap: 10px;
+  }
+
+  /* Chef Table responsive adjustments - Extra small screens */
+  .chef-table-container {
+    max-height: 200px;
+  }
+
+  .chef-header-cell {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .chef-cell {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .chef-header-cell:first-child,
+  .chef-name-cell {
+    width: 150px;
   }
 }
 

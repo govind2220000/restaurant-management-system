@@ -28,24 +28,20 @@ function Dashboard() {
     },
     chefs: [
       {
-        name: 'Chef Marco',
-        totalOrders: 8,
-        avatar: '👨‍🍳'
+        name: 'Manesh',
+        totalOrders: 3
       },
       {
-        name: 'Chef Sarah',
-        totalOrders: 6,
-        avatar: '👩‍🍳'
+        name: 'Pritam',
+        totalOrders: 7
       },
       {
-        name: 'Chef Antonio',
-        totalOrders: 4,
-        avatar: '👨‍🍳'
+        name: 'Yash',
+        totalOrders: 5
       },
       {
-        name: 'Chef Maria',
-        totalOrders: 2,
-        avatar: '👩‍🍳'
+        name: 'Tenzen',
+        totalOrders: 8
       }
     ]
   });
@@ -389,28 +385,29 @@ function Dashboard() {
 
           </div>
 
-          {/* Chef Table Section */}
+          {/* Chef Table Section - Matching Figma Design */}
           <div className="chef-table-section">
             <div className="chef-table-container">
-              <div className="chef-table">
-                <div className="chef-table-head">
-                  <div className="chef-header-cell">Chef Name</div>
-                  <div className="chef-header-cell">Total Orders Taken</div>
-                </div>
-                <div className="chef-table-body">
+              <table className="chef-table">
+                <thead className="chef-table-head">
+                  <tr>
+                    <th className="chef-header-cell">Chef Name</th>
+                    <th className="chef-header-cell">Order Taken</th>
+                  </tr>
+                </thead>
+                <tbody className="chef-table-body">
                   {dashboardData.chefs.map((chef, index) => (
-                    <div key={index} className="chef-table-row">
-                      <div className="chef-cell">
-                        <span className="chef-avatar">{chef.avatar}</span>
-                        <span className="chef-name">{chef.name}</span>
-                      </div>
-                      <div className="chef-cell">
-                        <span className="chef-orders">{chef.totalOrders}</span>
-                      </div>
-                    </div>
+                    <tr key={index} className="chef-table-row">
+                      <td className="chef-cell chef-name-cell">
+                        {chef.name}
+                      </td>
+                      <td className="chef-cell chef-orders-cell">
+                        {chef.totalOrders.toString().padStart(2, '0')}
+                      </td>
+                    </tr>
                   ))}
-                </div>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
