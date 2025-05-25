@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema({
       required: [function() { return this.type === 'Take Away'; }, 'Customer name is required for Take Away orders']
     },
     phone: { 
-      type: Number,
+      type: String,
       required: [function() { return this.type === 'Take Away'; }, 'Phone number is required for Take Away orders']
     },
     address: { 
