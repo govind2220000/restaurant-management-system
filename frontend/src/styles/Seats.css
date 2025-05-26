@@ -71,9 +71,7 @@
   height: 24px;
 }
 
-.seats-section .delete-btn:hover {
-  color: #dc3545;
-}
+
 
 /* Seats Page Table Info Section */
 .seats-section .table-info {
@@ -100,6 +98,11 @@
   font-size: 30px;
   line-height: 1.2;
   color: #000000;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .seats-section .table-id {
@@ -169,6 +172,188 @@
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* Add Table Button Styles */
+.add-table-card {
+  /* background-color: #DC3545; */
+  border: 2px dashed #999999;
+  border-radius: 7px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 126px;
+  width: 146px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-table-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #777;
+}
+
+.add-table-icon {
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+}
+
+/* Add Table Modal Styles */
+.add-table-modal {
+  padding: 15px;
+  width: 194px;
+  height: 253px;
+  overflow: hidden; /* Prevent internal scrolling */
+  position: relative;
+  background-color: #f0f5f3;
+}
+
+
+.form-field {
+  margin-bottom: 12px;
+}
+
+.form-label {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #000000;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  padding: 4px 0;
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.form-divider {
+  width: 100%;
+  height: 1px;
+  background: #000000;
+  border: none;
+  margin: 12px 0;
+  border-style: dashed;
+  border-width: 1px 0 0 0;
+}
+
+.capacity-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.capacity-display {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.2;
+  color: #000000;
+  min-width: 47px;
+  text-align: center;
+}
+
+.capacity-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.capacity-dropdown {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: none;
+  padding: 1px 31px 1px 7px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #4E4E4E;
+  width: 49px;
+  height: 26px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 8px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.form-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.create-button {
+  background-color: #505050;
+  color: #FEFEFE;
+  border: none;
+  border-radius: 15px;
+  padding: 11px 55px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.create-button:hover {
+  background-color: #404040;
+}
+
+.create-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submit-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-message {
+  color: #dc3545;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* Responsive modal positioning */
+
+
+@media (max-width: 480px) {
+  .add-table-modal {
+    width: 90vw;
+    max-width: 194px;
+  }
+
+
 }
 
 /* Responsive styles for seats section */
