@@ -329,7 +329,7 @@ body {
 
 .chart-header {
   display: flex;
- gap: 15px;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 15px;
@@ -367,8 +367,12 @@ body {
 }
 
 .revenue-chart .chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #d9d9d9;
   margin-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .revenue-chart .chart-header h3 {
@@ -397,18 +401,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-}
-
-.revenue-chart .time-selector span {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  color: #b9b8be;
-}
-
-.revenue-chart .time-selector svg {
-  flex-shrink: 0;
 }
 
 .chart-subtitle {
@@ -535,8 +527,12 @@ body {
 }
 
 .table-booking .chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #d9d9d9;
   margin-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .table-booking .chart-header h3 {
@@ -789,6 +785,45 @@ body {
 /* Order Summary - Matching Figma Design */
 .order-summary {
   background-color: #f0f5f3;
+  border: 2px solid #d9d9d9;
+  border-radius: 8px;
+}
+
+.order-summary .chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d9d9d9;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.order-summary .chart-header h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.21;
+  color: #6e6e6e;
+  margin: 0;
+}
+
+.order-summary .time-selector {
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 21px;
+  padding: 12px 18px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.21;
+  color: #b9b8be;
+  outline: none;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Order Stats Cards Grid */
@@ -1047,6 +1082,19 @@ body {
     flex-shrink: 0; /* Prevent charts from shrinking */
   }
 
+  /* Chart header responsive adjustments for medium screens */
+  .chart-header {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .revenue-chart .chart-header,
+  .order-summary .chart-header,
+  .table-booking .chart-header {
+    justify-content: space-between;
+    align-items: center;
+  }
+
   /* Chart bars responsive - Medium screens */
   .chart-bars {
     gap: 15px;
@@ -1277,6 +1325,31 @@ body {
     overflow-y: auto; /* Allow internal scrolling */
     display: flex;
     flex-direction: column;
+  }
+
+  /* Chart header responsive adjustments for small screens */
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .chart-controls {
+    align-self: flex-end;
+  }
+
+  .revenue-chart .chart-header,
+  .order-summary .chart-header,
+  .table-booking .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .revenue-chart .chart-controls,
+  .order-summary .chart-controls,
+  .table-booking .chart-controls {
+    align-self: flex-end;
   }
 
   /* Chart bars responsive - Small screens */

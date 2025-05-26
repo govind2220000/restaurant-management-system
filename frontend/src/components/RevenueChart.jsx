@@ -6,12 +6,11 @@ function RevenueChart({ revenueData }) {
       <div className="chart-header">
         <h3>Revenue</h3>
         <div className="chart-controls">
-          <div className="time-selector">
-            <span>Daily</span>
-            <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
-              <path d="M5.63186 3.086L12 7.36379L18.3681 3.086L19.7279 4.44579L12 9.63621L4.27214 4.44579L5.63186 3.086Z" fill="#B9B8BE"/>
-            </svg>
-          </div>
+          <select className="time-selector">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
         </div>
       </div>
 
