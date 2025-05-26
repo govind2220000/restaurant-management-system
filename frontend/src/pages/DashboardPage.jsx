@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import StatsGrid from '../components/StatsGrid';
 import ChartsSection from '../components/ChartsSection';
 import ChefTable from '../components/ChefTable';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { getAnalytics } from '../api';
 
 function DashboardPage() {
@@ -72,6 +73,17 @@ function DashboardPage() {
 
     return () => clearInterval(interval);
   }, []);
+
+  if (loading) {
+    return (
+      <>
+        <h1 className="section-title">Analytics</h1>
+        <div className="dashboard-loading">
+          <LoadingSpinner message="Loading dashboard data..." size="large" />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

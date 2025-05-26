@@ -28,7 +28,7 @@ function TableBooking({ tables }) {
                     className={`table-item ${table.status}`}
                   >
                     <span className="table-number">
-                      <span className="table-label">Table</span><br />{table.id.toString().padStart(2, '0')}
+                      <span className="table-label">{table.name || 'Table'}</span><br />{table.id.toString().padStart(2, '0')}
                     </span>
                   </div>
                 ))}

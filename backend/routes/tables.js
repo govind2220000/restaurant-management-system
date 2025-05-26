@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
     const formattedTables = tables.map(table => ({
       id: table._id,
       number: table.tableNumber.replace('T', ''), // Remove 'T' prefix for display
+      name: table.name, // Include table name
       capacity: table.capacity,
       seats: table.capacity, // Alias for backward compatibility
       status: table.isReserved ? 'reserved' : 'available',
@@ -56,6 +57,7 @@ router.get('/search/:query', async (req, res) => {
     const tables = await Table.find({
       $or: [
         { tableNumber: { $regex: query, $options: 'i' } },
+        { name: { $regex: query, $options: 'i' } }, // Search by table name
         { isReserved: query.toLowerCase() === 'reserved' ? true :
                       query.toLowerCase() === 'available' ? false : undefined }
       ]
@@ -106,6 +108,7 @@ router.post('/', async (req, res) => {
     // Create the table with the generated table number
     const table = new Table({
       tableNumber: nextTableNumber,
+      name: req.body.name || undefined, // Include optional table name
       capacity: req.body.capacity,
       isReserved: false,
       currentOrder: null
@@ -115,7 +118,11 @@ router.post('/', async (req, res) => {
     await session.commitTransaction();
     session.endSession();
 
-    res.status(201).json(table);
+    res.status(201).json({
+      success: true,
+      data: table,
+      message: 'Table created successfully'
+    });
   } catch (err) {
     await session.abortTransaction();
     session.endSession();

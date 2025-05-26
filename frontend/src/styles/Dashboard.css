@@ -731,6 +731,10 @@ body {
   line-height: 1.5;
   text-align: center;
   color: #374151;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Chef Table Section - Matching Figma Design */
@@ -1086,7 +1090,7 @@ body {
   .table-grid-container {
     height: auto;
     /* margin: 0 17px 0px 17px; */
-    
+
   }
 
   .table-grid {
@@ -1775,5 +1779,14 @@ body {
 .availability-btn.unavailable {
   background: #fee2e2;
   color: #dc2626;
+}
+
+/* Dashboard Loading Styles */
+.dashboard-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: 100%;
 }
 
