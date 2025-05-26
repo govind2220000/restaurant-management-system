@@ -439,7 +439,12 @@ body {
 }
 
 .revenue-trend-line {
-  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+}
+
+.revenue-trend-line path {
+  filter: drop-shadow(0 1px 2px rgba(42, 42, 42, 0.1));
 }
 
 .chart-bars {
@@ -463,51 +468,89 @@ body {
 
 .chart-bar {
   width: 47px;
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
+  background: linear-gradient(180deg, #d4e6d9 0%, rgba(0, 0, 0, 0.15) 100%);
   border-radius: 2.76px;
   min-height: 10px;
   transition: all 0.3s ease;
-  opacity: 0.05;
+  opacity: 0.9;
 }
 
-/* Different styling for each bar to match Figma design */
+/* Different styling for each bar to match Figma design - darker and more visible */
 .chart-bar-container:nth-child(1) .chart-bar {
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
-  opacity: 0.05;
+  background: linear-gradient(180deg, #c8dccf 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0.9;
 }
 
 .chart-bar-container:nth-child(2) .chart-bar {
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
-  opacity: 0.05;
+  background: linear-gradient(180deg, #c8dccf 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0.9;
 }
 
 .chart-bar-container:nth-child(3) .chart-bar {
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
-  opacity: 0.05;
+  background: linear-gradient(180deg, #c8dccf 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0.9;
 }
 
 .chart-bar-container:nth-child(4) .chart-bar {
-  background: #2a2a2a;
-  opacity: 0.1;
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  opacity: 1.0;
 }
 
 .chart-bar-container:nth-child(5) .chart-bar {
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
-  opacity: 0.05;
+  background: linear-gradient(180deg, #c8dccf 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0.9;
 }
 
 .chart-bar-container:nth-child(6) .chart-bar {
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
-  opacity: 0.05;
+  background: linear-gradient(180deg, #c8dccf 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0.9;
 }
 
 .chart-bar-container:nth-child(7) .chart-bar {
-  background: linear-gradient(180deg, #f0f5f3 0%, rgba(0, 0, 0, 0.05) 100%);
-  opacity: 0.05;
+  background: linear-gradient(180deg, #c8dccf 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0.9;
 }
 
 .chart-bar:hover {
-  opacity: 0.15;
+  opacity: 1.0;
+  cursor: pointer;
+}
+
+/* Chart Tooltips */
+.chart-tooltip {
+  position: absolute;
+  background: rgba(42, 42, 42, 0.95);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translateX(-50%) translateY(-100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+.chart-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(42, 42, 42, 0.95);
+}
+
+.tooltip-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #f0f5f3;
+}
+
+.tooltip-value {
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .chart-label {
@@ -584,7 +627,8 @@ body {
   border-radius: 0;
   margin: 0 17px 0px 17px;
   padding: 0;
-  height: auto;
+  flex: 1;
+  height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #d9d9d9 transparent;
@@ -622,8 +666,11 @@ body {
 }
 
 .table-item {
-  width: 52px;
-  height: 50px;
+  min-width: 52px;
+  min-height: 50px;
+  width: fit-content;
+  height: fit-content;
+  padding: 8px 6px;
   border: 0.37px solid #bababa;
   border-radius: 2.2px;
   display: flex;
@@ -636,7 +683,7 @@ body {
   line-height: 1.5;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  
 
   margin-right: 6px;
   flex-shrink: 0;
@@ -665,12 +712,16 @@ body {
 }
 
 .table-number {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   font-size: 18px;
   line-height: 1.5;
   text-align: center;
   color: inherit;
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+  margin: 0;
 }
 
 .table-label {

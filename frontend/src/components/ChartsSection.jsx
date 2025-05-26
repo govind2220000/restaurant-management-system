@@ -6,8 +6,8 @@ import TableBooking from './TableBooking';
 function ChartsSection({ dashboardData }) {
   return (
     <div className="charts-section">
-      <OrderSummary orderSummary={dashboardData.orderSummary} />
-      <RevenueChart revenueData={dashboardData.revenueData} />
+      <OrderSummary />
+      <RevenueChart />
       <TableBooking tables={dashboardData.tables} />
     </div>
   );
