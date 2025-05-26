@@ -1,0 +1,32 @@
+/* Seats Section - Seats page specific styles */
+.seats-section {
+  background-color: white;
+  border-radius: 32px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Allow internal scrolling */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Take full height of content area */
+}
+
+/* Responsive styles for seats section */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .seats-section {
+    max-height: none; /* Remove height constraints */
+    overflow: visible; /* Allow content overflow */
+  }
+}
+
+@media (max-width: 768px) {
+  .seats-section {
+    padding: 20px 20px 15px 20px; /* Reduced bottom padding for mobile */
+    border-radius: 20px;
+    max-height: none; /* Remove height constraints */
+    overflow: visible; /* Allow content overflow */
+    flex: none; /* Remove flex constraints */
+    display: block; /* Use normal block layout */
+  }
+}

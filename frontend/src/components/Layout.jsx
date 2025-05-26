@@ -1,10 +1,29 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import SearchHeader from './SearchHeader';
 import '../styles/Dashboard.css';
 
 function Layout() {
+  const location = useLocation();
+
+  // Function to determine the appropriate section class based on current route
+  const getSectionClass = () => {
+    const pathname = location.pathname;
+
+    if (pathname === '/dashboard' || pathname === '/') {
+      return 'dashboard-section';
+    } else if (pathname === '/seats') {
+      return 'seats-section';
+    } else if (pathname === '/order-line') {
+      return 'orders-section';
+    } else if (pathname === '/analytics') {
+      return 'analytics-section';
+    }
+
+    // Default fallback
+    return 'analytics-section';
+  };
+
   return (
     <div className="dashboard-layout">
       {/* Sidebar Container */}
@@ -17,9 +36,11 @@ function Layout() {
         {/* Header with Search */}
         <SearchHeader />
 
-        {/* Dynamic Content Area */}
+        {/* Dynamic Content Area with Semantic Section Class */}
         <div className="content-area">
-          <Outlet />
+          <div className={getSectionClass()}>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

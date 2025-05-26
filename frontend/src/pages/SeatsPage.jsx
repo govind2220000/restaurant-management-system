@@ -1,8 +1,10 @@
+import '../styles/Seats.css';
+
 function SeatsPage() {
   return (
-    <div className="analytics-section">
-      <h1 className="section-title">Table Management</h1>
-    </div>
+    <>
+      <h1 className="section-title">Tables</h1>
+    </>
   );
 }
 

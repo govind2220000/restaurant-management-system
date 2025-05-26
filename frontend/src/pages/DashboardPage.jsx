@@ -74,7 +74,7 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div className="analytics-section">
+    <>
       <h1 className="section-title">Analytics</h1>
 
       {/* Stats Cards */}
@@ -85,7 +85,7 @@ function DashboardPage() {
 
       {/* Chef Table Section - Matching Figma Design */}
       <ChefTable chefs={dashboardData.chefs} />
-    </div>
+    </>
   );
 }
 
