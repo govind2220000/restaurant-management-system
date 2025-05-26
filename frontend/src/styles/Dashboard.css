@@ -76,8 +76,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  object-fit: cover;
-  display: block;
+  background-color: #D9D9D9;
 }
 
 .nav-items {
