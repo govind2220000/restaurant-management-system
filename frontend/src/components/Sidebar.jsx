@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
+import avatarImage from '../assets/avatar.png';
 
 function Sidebar() {
   return (
     <>
       <div className="profile-section">
         <div className="profile-picture">
-          <div className="profile-avatar"></div>
+          <img src={avatarImage} alt="Profile Avatar" className="profile-avatar" />
         </div>
       </div>
       <div className="sidebar">
