@@ -100,8 +100,10 @@ function Dashboard() {
 
   return (
     <div className="dashboard-layout">
-      {/* Sidebar Navigation */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      {/* Sidebar Container */}
+      <div className="sidebar-container">
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
 
       {/* Main Content */}
       <div className="main-content">

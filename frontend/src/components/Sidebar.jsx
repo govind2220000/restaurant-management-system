@@ -2,9 +2,15 @@ import React from 'react';
 
 function Sidebar({ activeTab, setActiveTab }) {
   return (
-    <div className="sidebar">
-      <div className="sidebar-content">
-        <div className="nav-items">
+    <>
+      <div className="profile-section">
+        <div className="profile-picture">
+          <div className="profile-avatar"></div>
+        </div>
+      </div>
+      <div className="sidebar">
+        <div className="sidebar-content">
+          <div className="nav-items">
           <div className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
                onClick={() => setActiveTab('dashboard')}>
             <div className="nav-icon">
@@ -40,6 +46,7 @@ function Sidebar({ activeTab, setActiveTab }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

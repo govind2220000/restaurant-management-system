@@ -17,18 +17,24 @@ body {
   overflow: hidden; /* Prevent page-level scrolling */
 }
 
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 /* Sidebar Navigation - Matching Figma Design */
 .sidebar {
   width: 65px;
   background-color: #FFFFFF;
   border-radius: 50px;
-  margin: 20px;
+  margin: 0px 20px 20px 20px;
   padding: 10px 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 160px);
 }
 
 .sidebar-content {
@@ -36,6 +42,41 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.profile-section {
+  width: 65px;
+  background-color: #FFFFFF;
+  border-radius: 50px;
+  margin: 20px 20px 10px 20px;
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: #F0F5F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-picture:hover {
+  background-color: #E8F0ED;
+}
+
+.profile-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #D9D9D9;
 }
 
 .nav-items {
@@ -1102,6 +1143,12 @@ body {
     overflow: visible; /* Allow content overflow */
   }
 
+  .sidebar-container {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
   .sidebar {
     width: 100%;
     height: auto;
@@ -1109,6 +1156,14 @@ body {
     margin: 10px;
     padding: 15px 0;
     flex-shrink: 0; /* Prevent sidebar from shrinking */
+  }
+
+  .profile-section {
+    width: 100%;
+    margin: 10px;
+    border-radius: 50px;
+    padding: 15px 0;
+    margin-bottom: 10px;
   }
 
   .nav-items {
