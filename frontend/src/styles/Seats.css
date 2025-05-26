@@ -133,12 +133,42 @@
   font-family: 'Lato', sans-serif;
   font-weight: 700;
   font-size: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-
+  line-height: 1.2;
   color: #000000;
+}
+
+/* Loading and Error States */
+.tables-grid-loading,
+.tables-grid-error,
+.tables-grid-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  flex: 1;
+}
+
+.loading-message,
+.error-message,
+.empty-message {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+.delete-spinner {
+  animation: spin 1s linear infinite;
+  font-size: 14px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Responsive styles for seats section */

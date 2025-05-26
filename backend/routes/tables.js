@@ -6,10 +6,33 @@ const mongoose = require('mongoose');
 // Get all tables
 router.get('/', async (req, res) => {
   try {
-    const tables = await Table.find().populate('currentOrder');
-    res.json(tables);
+    const tables = await Table.find().populate('currentOrder').sort({ tableNumber: 1 });
+
+    // Transform data to match frontend expectations
+    const formattedTables = tables.map(table => ({
+      id: table._id,
+      number: table.tableNumber.replace('T', ''), // Remove 'T' prefix for display
+      capacity: table.capacity,
+      seats: table.capacity, // Alias for backward compatibility
+      status: table.isReserved ? 'reserved' : 'available',
+      isReserved: table.isReserved,
+      currentOrder: table.currentOrder,
+      createdAt: table.createdAt,
+      updatedAt: table.updatedAt
+    }));
+
+    res.json({
+      success: true,
+      data: formattedTables,
+      count: formattedTables.length
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Error fetching tables:', err);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch tables',
+      message: err.message
+    });
   }
 });
 
@@ -33,11 +56,11 @@ router.get('/search/:query', async (req, res) => {
     const tables = await Table.find({
       $or: [
         { tableNumber: { $regex: query, $options: 'i' } },
-        { isReserved: query.toLowerCase() === 'reserved' ? true : 
+        { isReserved: query.toLowerCase() === 'reserved' ? true :
                       query.toLowerCase() === 'available' ? false : undefined }
       ]
     }).populate('currentOrder');
-    
+
     res.json(tables);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -48,7 +71,7 @@ router.get('/search/:query', async (req, res) => {
 router.post('/', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
-  
+
   try {
     // Validate capacity is provided
     if (!req.body.capacity || isNaN(req.body.capacity)) {
@@ -56,14 +79,14 @@ router.post('/', async (req, res) => {
       session.endSession();
       return res.status(400).json({ error: "Table capacity is required and must be a number" });
     }
-    
+
     // Find the highest existing table number
     const highestTable = await Table.findOne({}, { tableNumber: 1 })
       .sort({ tableNumber: -1 })
       .session(session);
-    
+
     let nextTableNumber;
-    
+
     if (highestTable) {
       // Extract the numeric part of the highest table number
       const match = highestTable.tableNumber.match(/T(\d+)/);
@@ -79,7 +102,7 @@ router.post('/', async (req, res) => {
       // No tables exist yet, start with T01
       nextTableNumber = 'T01';
     }
-    
+
     // Create the table with the generated table number
     const table = new Table({
       tableNumber: nextTableNumber,
@@ -87,11 +110,11 @@ router.post('/', async (req, res) => {
       isReserved: false,
       currentOrder: null
     });
-    
+
     await table.save({ session });
     await session.commitTransaction();
     session.endSession();
-    
+
     res.status(201).json(table);
   } catch (err) {
     await session.abortTransaction();
@@ -117,64 +140,67 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
-  
+
   try {
     // Find the table to be deleted
     const tableToDelete = await Table.findById(req.params.id).session(session);
-    
+
     if (!tableToDelete) {
       await session.abortTransaction();
       session.endSession();
       return res.status(404).json({ message: 'Table not found' });
     }
-    
+
     // Check if table is currently in use
     if (tableToDelete.isReserved) {
       await session.abortTransaction();
       session.endSession();
       return res.status(400).json({ message: 'Cannot delete a table that is currently reserved' });
     }
-    
+
     // Get the table number of the deleted table
     const deletedTableNumber = tableToDelete.tableNumber;
     console.log(`Deleting table ${deletedTableNumber}`);
-    
+
     // Delete the table
     await Table.findByIdAndDelete(req.params.id).session(session);
-    
+
     // Find all tables with higher numbers to reorder them
     const tablesForReordering = await Table.find({
       tableNumber: { $gt: deletedTableNumber }
     }).sort({ tableNumber: 1 }).session(session);
-    
+
     console.log(`Found ${tablesForReordering.length} tables to reorder after deleting ${deletedTableNumber}`);
-    
+
     // Reorder the remaining tables
     for (const table of tablesForReordering) {
       // Extract the numeric part of the current table number
       const currentMatch = table.tableNumber.match(/T(\d+)/);
-      
+
       if (currentMatch && currentMatch[1]) {
         const currentNumber = parseInt(currentMatch[1]);
         // Decrement the number and format with leading zeros
         const newNumber = (currentNumber - 1).toString().padStart(2, '0');
         const newTableNumber = `T${newNumber}`;
-        
+
         console.log(`Renumbering table from ${table.tableNumber} to ${newTableNumber}`);
-        
+
         // Update the table number
         table.tableNumber = newTableNumber;
         await table.save({ session });
       }
     }
-    
+
     await session.commitTransaction();
     session.endSession();
-    
-    res.json({ 
+
+    res.json({
+      success: true,
       message: 'Table deleted successfully',
-      deletedTable: deletedTableNumber,
-      reorderedTables: tablesForReordering.length
+      data: {
+        deletedTable: deletedTableNumber,
+        reorderedTables: tablesForReordering.length
+      }
     });
   } catch (err) {
     await session.abortTransaction();
