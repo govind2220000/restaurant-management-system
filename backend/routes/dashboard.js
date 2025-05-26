@@ -10,26 +10,26 @@ router.get('/analytics', async (req, res) => {
     const totalChefs = await Chef.countDocuments();
     const totalOrders = await Order.countDocuments();
     const activeOrders = await Order.countDocuments({ status: 'Processing' });
-    
+
     // Calculate total revenue
     const revenueData = await Order.aggregate([
       { $group: { _id: null, total: { $sum: "$total" } } }
     ]);
     const totalRevenue = revenueData.length > 0 ? revenueData[0].total : 0;
-    
+
     // Count unique clients by phone number
     const uniqueClients = await Order.distinct('customer.phone');
     const totalClients = uniqueClients.length;
-    
+
     // Get daily revenue for the past week
     const today = new Date();
     const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-    
+
     const dailyRevenue = await Order.aggregate([
-      { 
-        $match: { 
-          createdAt: { $gte: weekAgo, $lte: today } 
-        } 
+      {
+        $match: {
+          createdAt: { $gte: weekAgo, $lte: today }
+        }
       },
       {
         $group: {
@@ -39,7 +39,7 @@ router.get('/analytics', async (req, res) => {
       },
       { $sort: { _id: 1 } }
     ]);
-    
+
     // Get order summary by type
     const orderSummary = await Order.aggregate([
       {
@@ -50,13 +50,13 @@ router.get('/analytics', async (req, res) => {
         }
       }
     ]);
-    
+
     // Calculate percentages
     const totalOrderCount = await Order.countDocuments();
     orderSummary.forEach(item => {
       item.percentage = (item.count / totalOrderCount) * 100;
     });
-    
+
     // Get order status summary
     const statusSummary = await Order.aggregate([
       {
@@ -67,20 +67,20 @@ router.get('/analytics', async (req, res) => {
         }
       }
     ]);
-    
+
     // Calculate percentages for status
     statusSummary.forEach(item => {
       item.percentage = (item.count / totalOrderCount) * 100;
     });
-    
+
     // Get chef workload summary
     const chefs = await Chef.find().select('name currentWorkload estimatedAvailableAt');
     const chefWorkloads = await Promise.all(chefs.map(async (chef) => {
-      const orderCount = await Order.countDocuments({ 
-        chef: chef._id, 
-        status: 'Processing' 
+      const orderCount = await Order.countDocuments({
+        chef: chef._id,
+        status: 'Processing'
       });
-      
+
       return {
         name: chef.name,
         currentWorkload: chef.currentWorkload,
@@ -88,19 +88,14 @@ router.get('/analytics', async (req, res) => {
         orderCount
       };
     }));
-    
-    // Get table status summary
-    const tables = await Table.countDocuments();
-    const reservedTables = await Table.countDocuments({ isReserved: true });
-    const availableTables = tables - reservedTables;
-    
-    const tableStatusSummary = {
-      total: tables,
-      reserved: reservedTables,
-      available: availableTables,
-      reservedPercentage: (reservedTables / tables) * 100,
-      availablePercentage: (availableTables / tables) * 100
-    };
+
+    // Get table status summary as array of table objects
+    const allTables = await Table.find().select('tableNumber isReserved').sort({ tableNumber: 1 });
+
+    const tableStatusSummary = allTables.map(table => ({
+      tableNumber: table.tableNumber,
+      isReserved: table.isReserved
+    }));
 
     res.json({
       totalChefs,
