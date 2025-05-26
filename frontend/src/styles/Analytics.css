@@ -12,6 +12,15 @@
   height: 100%; /* Take full height of content area */
 }
 
+/* Section title for analytics page */
+.analytics-section .section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #565656;
+  margin: 0 0 15px 0;
+  flex-shrink: 0;
+}
+
 /* Analytics Page Specific Styles */
 .analytics-overview {
   margin-bottom: 40px;

@@ -12,6 +12,135 @@
   height: 100%; /* Take full height of content area */
 }
 
+/* Section title for seats page */
+.seats-section .section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #565656;
+  margin: 0 0 15px 0;
+  flex-shrink: 0;
+}
+
+/* Seats Page Tables Grid Layout */
+.seats-section .tables-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  padding: 20px 0;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 200px); /* Adjust based on header and title height */
+}
+
+/* Seats Page Table Card Styling */
+.seats-section .table-card {
+  background-color: #F0F5F3;
+  border: 1px solid #BABABA;
+  border-radius: 7px;
+  padding: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 126px;
+  width: 146px;
+  transition: all 0.2s ease;
+}
+
+.seats-section .table-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Seats Page Delete Button */
+.seats-section .delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #000000;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.seats-section .delete-btn:hover {
+  color: #dc3545;
+}
+
+/* Seats Page Table Info Section */
+.seats-section .table-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+}
+
+.seats-section .table-number {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+  color: #000000;
+  white-space: pre-line;
+}
+
+.seats-section .table-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #000000;
+}
+
+.seats-section .table-id {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.1;
+  color: #000000;
+  margin-top: 4px;
+}
+
+/* Seats Page Table Footer */
+.seats-section .table-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.seats-section .chair-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: #000000;
+}
+
+.seats-section .seat-count {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  color: #000000;
+}
+
 /* Responsive styles for seats section */
 @media (max-width: 1024px) and (min-width: 769px) {
   .seats-section {

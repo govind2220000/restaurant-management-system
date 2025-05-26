@@ -12,6 +12,15 @@
   height: 100%; /* Take full height of content area */
 }
 
+/* Section title for orders page */
+.orders-section .section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #565656;
+  margin: 0 0 15px 0;
+  flex-shrink: 0;
+}
+
 /* Responsive styles for orders section */
 @media (max-width: 1024px) and (min-width: 769px) {
   .orders-section {

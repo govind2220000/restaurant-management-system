@@ -204,7 +204,7 @@ body {
 .section-title {
   font-size: 24px;
   font-weight: 600;
-  color: #1e293b;
+  color: #565656;
   margin: 0 0 15px 0; /* Reduced margin from 30px to 15px */
   flex-shrink: 0; /* Prevent title from shrinking */
 }
