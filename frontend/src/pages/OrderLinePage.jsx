@@ -61,10 +61,7 @@ function OrderLinePage() {
     }
   ]);
 
-  const handleStatusChange = (currentStatus) => {
-    console.log('Status change requested for:', currentStatus);
-    // Handle status change logic here
-  };
+
 
   return (
     <>
@@ -81,7 +78,6 @@ function OrderLinePage() {
             orderTime={order.orderTime}
             orderStartTime={order.orderStartTime}
             items={order.items}
-            onStatusChange={handleStatusChange}
           />
         ))}
       </div>

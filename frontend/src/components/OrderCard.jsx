@@ -1,4 +1,5 @@
 import React from 'react';
+import { ProcessingIcon, OrderDoneIcon, TakeawayDoneIcon, OrderIcon } from '../assets/icons';
 import '../styles/OrderCard.css';
 
 function OrderCard({
@@ -8,8 +9,7 @@ function OrderCard({
   tableName,
   orderStartTime,
   orderNumber,
-  orderTime,
-  onStatusChange
+  orderTime
 }) {
 
   // Calculate ongoing time for Dine In orders
@@ -71,44 +71,28 @@ function OrderCard({
       case 'Processing':
         return {
           text: 'Processing',
-          icon: (
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none">
-              <path d="M4.5 0L9 15H0L4.5 0Z" fill="#D87300"/>
-            </svg>
-          ),
+          icon: <ProcessingIcon fill="#D87300" />,
           background: '#FDC474',
           textColor: '#D87300'
         };
       case 'Completed':
         return {
           text: 'Order Done',
-          icon: (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M7.5 12L3 7.5L4.5 6L7.5 9L13.5 3L15 4.5L7.5 12Z" fill="#0E912F"/>
-            </svg>
-          ),
+          icon: <OrderDoneIcon fill="#0E912F" />,
           background: '#31FF65',
           textColor: '#0E912F'
         };
       case 'Ready':
         return {
           text: 'Order Done',
-          icon: (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M7.5 12L3 7.5L4.5 6L7.5 9L13.5 3L15 4.5L7.5 12Z" fill="#3B413D"/>
-            </svg>
-          ),
+          icon: <TakeawayDoneIcon fill="#3B413D" />,
           background: '#9BAEB3',
           textColor: '#3B413D'
         };
       default:
         return {
           text: 'Processing',
-          icon: (
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none">
-              <path d="M4.5 0L9 15H0L4.5 0Z" fill="#D87300"/>
-            </svg>
-          ),
+          icon: <ProcessingIcon fill="#D87300" />,
           background: '#FDC474',
           textColor: '#D87300'
         };
@@ -131,9 +115,7 @@ function OrderCard({
         {/* Column 1, Row 1: Order Header (Icon + Number) */}
         <div className="order-header-area">
           <div className="order-icon">
-            <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
-              <path d="M6 0L12 20H0L6 0Z" fill="#007AFF"/>
-            </svg>
+            <OrderIcon fill="#007AFF" />
           </div>
           <div className="order-number">
             # {orderNumber || '108'}
@@ -207,7 +189,7 @@ function OrderCard({
                     <span className="item-quantity">{item.quantity || 1} x</span>
                     <div className="item-details">
                       <span className="item-name">{item.name}</span>
-                      
+
                     </div>
                   </div>
                 </div>
@@ -219,19 +201,18 @@ function OrderCard({
         </div>
       </div>
 
-      {/* Bottom Button Section */}
+      {/* Bottom Status Section */}
       <div className="order-card-bottom">
-        <button
-          className="order-status-button"
+        <span
+          className="order-status-display"
           style={{
             backgroundColor: buttonConfig.background,
             color: buttonConfig.textColor
           }}
-          onClick={() => onStatusChange && onStatusChange(orderStatus)}
         >
-          <div className="button-icon">{buttonConfig.icon}</div>
-          <span className="button-text">{buttonConfig.text}</span>
-        </button>
+          <span className="status-text">{buttonConfig.text}</span>
+          <div className="status-icon">{buttonConfig.icon}</div>
+        </span>
       </div>
     </div>
   );

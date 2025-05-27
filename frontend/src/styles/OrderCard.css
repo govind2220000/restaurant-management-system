@@ -249,7 +249,7 @@
 .item-details {
   display: flex;
   flex-direction: column;
-  
+
   gap: 2px;
   flex: 1;
   min-width: 0;
@@ -289,7 +289,7 @@
   padding: 20px;
 }
 
-/* Bottom Button Section */
+/* Bottom Status Section */
 .order-card-bottom {
   position: absolute;
   top: 365px;
@@ -298,39 +298,31 @@
   height: 40px;
 }
 
-.order-status-button {
+.order-status-display {
   position: relative;
   width: 140px;
   height: 40px;
   border-radius: 18px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.order-status-button:hover {
-  opacity: 0.8;
-}
-
-.button-icon {
-  position: absolute;
-  top: 12px;
-  left: 105px;
+.status-icon {
   width: 12px;
   height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button-text {
-  position: absolute;
-  top: 12px;
-  left: 25px;
-  width: 75px;
-  height: 18px;
+.status-text {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 12px;
   line-height: 1.5em;
-  text-align: right;
+  text-align: center;
 }
 
 /* Responsive Design */
