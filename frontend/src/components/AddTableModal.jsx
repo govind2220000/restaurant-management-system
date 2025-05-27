@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
 import LoadingSpinner from './LoadingSpinner';
-import { createTable } from '../api/tables';
+import { createTable } from '../api';
 
 function AddTableModal({ isOpen, onClose, onTableCreated, triggerRef }) {
   const [tableName, setTableName] = useState('');

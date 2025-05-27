@@ -1,9 +1,10 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Tables API functions
+// Following the established patterns from dashboardApi.js and orders.js
 
 // Fetch all tables
 export const fetchTables = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tables`);
+    const response = await fetch('/api/tables');
     const result = await response.json();
 
     if (!response.ok) {
@@ -20,7 +21,7 @@ export const fetchTables = async () => {
 // Fetch single table by ID
 export const fetchTableById = async (tableId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tables/${tableId}`);
+    const response = await fetch(`/api/tables/${tableId}`);
     const result = await response.json();
 
     if (!response.ok) {
@@ -37,7 +38,7 @@ export const fetchTableById = async (tableId) => {
 // Create new table
 export const createTable = async (tableData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tables`, {
+    const response = await fetch('/api/tables', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ export const createTable = async (tableData) => {
 // Update table
 export const updateTable = async (tableId, tableData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tables/${tableId}`, {
+    const response = await fetch(`/api/tables/${tableId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ export const updateTable = async (tableId, tableData) => {
 // Delete table
 export const deleteTable = async (tableId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tables/${tableId}`, {
+    const response = await fetch(`/api/tables/${tableId}`, {
       method: 'DELETE',
     });
 
@@ -106,7 +107,7 @@ export const deleteTable = async (tableId) => {
 // Search tables
 export const searchTables = async (query) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tables/search/${encodeURIComponent(query)}`);
+    const response = await fetch(`/api/tables/search/${encodeURIComponent(query)}`);
     const result = await response.json();
 
     if (!response.ok) {

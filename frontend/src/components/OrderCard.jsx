@@ -3,6 +3,7 @@ import { ProcessingIcon, OrderDoneIcon, TakeawayDoneIcon, OrderIcon } from '../a
 import '../styles/OrderCard.css';
 
 function OrderCard({
+  id,
   orderType,
   orderStatus,
   items,
@@ -12,9 +13,26 @@ function OrderCard({
   orderTime
 }) {
 
-  // Calculate ongoing time for Dine In orders
+  // Deterministic random function based on order ID for consistent results
+  const getDeterministicRandom = (seed) => {
+    if (!seed) return 0.5; // Default fallback
+
+    // Simple hash function to convert ID to number
+    let hash = 0;
+    const str = seed.toString();
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+
+    // Convert to 0-1 range
+    return Math.abs(hash) / 2147483647;
+  };
+
+  // Calculate ongoing time for processing orders
   const calculateOngoingTime = () => {
-    if (orderType !== 'Dine In' || !orderStartTime) return '';
+    if (!orderStartTime) return '';
 
     const start = new Date(orderStartTime);
     const now = new Date();
@@ -29,32 +47,89 @@ function OrderCard({
     }
   };
 
-  // Get card background color based on status
+  // Get card background color based on order type and status combination
   const getCardBackgroundColor = () => {
-    switch (orderStatus) {
-      case 'Processing':
-        return '#FFE3BC';
-      case 'Completed':
-        return '#B9F8C9';
-      case 'Ready':
-        return '#C2D4D9';
-      default:
-        return '#FFE3BC';
+    // Scenario 1: Completed Dine In Orders
+    if (orderType === 'Dine In' && orderStatus === 'Completed') {
+      return '#B9F8C9';
     }
+
+    // Scenario 2: Completed Take Away Orders
+    if (orderType === 'Take Away' && orderStatus === 'Completed') {
+      return '#C2D4D9';
+    }
+
+    // Scenario 3: Processing Orders (Any Type)
+    if (orderStatus === 'Processing') {
+      return '#FFE3BC';
+    }
+
+    // Default fallback
+    return '#FFE3BC';
   };
 
   // Get darker variant of card background color for order-type text
   const getDarkerBackgroundColor = () => {
-    switch (orderStatus) {
-      case 'Processing':
-        return '#FF9500'; // Darker orange for Processing (FFE3BC background)
-      case 'Completed':
-        return '#34C759'; // Darker green for Completed (B9F8C9 background)
-      case 'Ready':
-        return '#3181A3'; // Darker blue for Ready (C2D4D9 background)
-      default:
-        return '#FF9500'; // Default darker orange
+    // Scenario 1: Completed Dine In Orders (B9F8C9 background)
+    if (orderType === 'Dine In' && orderStatus === 'Completed') {
+      return '#34C759'; // Darker green
     }
+
+    // Scenario 2: Completed Take Away Orders (C2D4D9 background)
+    if (orderType === 'Take Away' && orderStatus === 'Completed') {
+      return '#3181A3'; // Darker blue
+    }
+
+    // Scenario 3: Processing Orders (FFE3BC background)
+    if (orderStatus === 'Processing') {
+      return '#FF9500'; // Darker orange
+    }
+
+    // Default fallback
+    return '#FF9500';
+  };
+
+  // Get display text for order type section
+  const getOrderTypeDisplay = () => {
+    // Scenario 1: Completed Dine In Orders - Display "Done"
+    if (orderType === 'Dine In' && orderStatus === 'Completed') {
+      return 'Done';
+    }
+
+    // Scenario 2: Completed Take Away Orders - Display "Take Away"
+    if (orderType === 'Take Away' && orderStatus === 'Completed') {
+      return 'Take Away';
+    }
+
+    // Scenario 3: Processing Orders - Display actual order type
+    if (orderStatus === 'Processing') {
+      return orderType;
+    }
+
+    // Default fallback
+    return orderType;
+  };
+
+  // Get display text for timing section
+  const getTimingDisplay = () => {
+    // Scenario 1: Completed Dine In Orders - Display "SERVED"
+    if (orderType === 'Dine In' && orderStatus === 'Completed') {
+      return 'SERVED';
+    }
+
+    // Scenario 2: Completed Take Away Orders - Display "Not Picked Up" or "Picked Up" randomly
+    if (orderType === 'Take Away' && orderStatus === 'Completed') {
+      const random = getDeterministicRandom(id);
+      return random > 0.5 ? 'Picked Up' : 'Not Picked Up';
+    }
+
+    // Scenario 3: Processing Orders - Display ongoing time
+    if (orderStatus === 'Processing') {
+      return calculateOngoingTime();
+    }
+
+    // Default fallback
+    return '';
   };
 
   // Get timing badge text colors
@@ -65,38 +140,58 @@ function OrderCard({
     };
   };
 
-  // Get button configuration based on status
+  // Get button configuration based on order type and status combination
   const getButtonConfig = () => {
-    switch (orderStatus) {
-      case 'Processing':
-        return {
-          text: 'Processing',
-          icon: <ProcessingIcon fill="#D87300" />,
-          background: '#FDC474',
-          textColor: '#D87300'
-        };
-      case 'Completed':
+    // Processing orders (any type)
+    if (orderStatus === 'Processing') {
+      return {
+        text: 'Processing',
+        icon: <ProcessingIcon fill="#D87300" />,
+        background: '#FDC474',
+        textColor: '#D87300'
+      };
+    }
+
+    // Completed orders - differentiate by order type
+    if (orderStatus === 'Completed') {
+      // Dine In completed orders
+      if (orderType === 'Dine In') {
         return {
           text: 'Order Done',
           icon: <OrderDoneIcon fill="#0E912F" />,
           background: '#31FF65',
           textColor: '#0E912F'
         };
-      case 'Ready':
+      }
+
+      // Take Away completed orders
+      if (orderType === 'Take Away') {
         return {
           text: 'Order Done',
           icon: <TakeawayDoneIcon fill="#3B413D" />,
           background: '#9BAEB3',
           textColor: '#3B413D'
         };
-      default:
-        return {
-          text: 'Processing',
-          icon: <ProcessingIcon fill="#D87300" />,
-          background: '#FDC474',
-          textColor: '#D87300'
-        };
+      }
     }
+
+    // Legacy 'Ready' status (fallback for Take Away)
+    if (orderStatus === 'Ready') {
+      return {
+        text: 'Order Done',
+        icon: <TakeawayDoneIcon fill="#3B413D" />,
+        background: '#9BAEB3',
+        textColor: '#3B413D'
+      };
+    }
+
+    // Default fallback
+    return {
+      text: 'Processing',
+      icon: <ProcessingIcon fill="#D87300" />,
+      background: '#FDC474',
+      textColor: '#D87300'
+    };
   };
 
   const timingColors = getTimingBadgeColors();
@@ -150,22 +245,14 @@ function OrderCard({
             className="order-type"
             style={{ color: timingColors.typeColor }}
           >
-            {orderType}
+            {getOrderTypeDisplay()}
           </span>
-          {orderType === 'Dine In' && orderStartTime && (
+          {getTimingDisplay() && (
             <span
-              className="ongoing-time"
+              className="timing-status"
               style={{ color: timingColors.statusColor }}
             >
-              {calculateOngoingTime()}
-            </span>
-          )}
-          {orderType === 'Takeaway' && (
-            <span
-              className="pickup-status"
-              style={{ color: timingColors.statusColor }}
-            >
-              Not Picked up
+              {getTimingDisplay()}
             </span>
           )}
         </div>

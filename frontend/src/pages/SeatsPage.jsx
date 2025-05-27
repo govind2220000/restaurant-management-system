@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import TablesGrid from '../components/TablesGrid';
 import ToastContainer from '../components/ToastContainer';
 import useToast from '../hooks/useToast';
-import { fetchTables, deleteTable } from '../api/tables';
+import { fetchTables, deleteTable } from '../api';
 import '../styles/Toast.css';
 import '../styles/Seats.css';
 

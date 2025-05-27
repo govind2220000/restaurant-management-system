@@ -101,7 +101,8 @@
 }
 
 .ongoing-time,
-.pickup-status {
+.pickup-status,
+.timing-status {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 10px;
@@ -350,7 +351,8 @@
   }
 
   .ongoing-time,
-  .pickup-status {
+  .pickup-status,
+  .timing-status {
     font-size: 7.5px;
   }
 
@@ -384,7 +386,8 @@
   }
 
   .ongoing-time,
-  .pickup-status {
+  .pickup-status,
+  .timing-status {
     font-size: 8px;
   }
 
