@@ -24,8 +24,8 @@
 /* Orders Grid Layout */
 .orders-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(247px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
   padding: 20px 0;
   justify-items: center;
 }

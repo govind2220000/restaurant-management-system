@@ -43,34 +43,26 @@ function OrderCard({
     }
   };
 
-  // Get timing badge colors based on order type
-  const getTimingBadgeColors = () => {
-    switch (orderType) {
-      case 'Dine In':
-        return {
-          background: '#FFE3BC',
-          typeColor: '#FF9500',
-          statusColor: '#2C2C2E'
-        };
-      case 'Takeaway':
-        return {
-          background: '#C2D4D9',
-          typeColor: '#3181A3',
-          statusColor: '#2C2C2E'
-        };
-      case 'Delivery':
-        return {
-          background: '#B9F8C9',
-          typeColor: '#34C759',
-          statusColor: '#2C2C2E'
-        };
+  // Get darker variant of card background color for order-type text
+  const getDarkerBackgroundColor = () => {
+    switch (orderStatus) {
+      case 'Processing':
+        return '#FF9500'; // Darker orange for Processing (FFE3BC background)
+      case 'Completed':
+        return '#34C759'; // Darker green for Completed (B9F8C9 background)
+      case 'Ready':
+        return '#3181A3'; // Darker blue for Ready (C2D4D9 background)
       default:
-        return {
-          background: '#FFE3BC',
-          typeColor: '#FF9500',
-          statusColor: '#2C2C2E'
-        };
+        return '#FF9500'; // Default darker orange
     }
+  };
+
+  // Get timing badge text colors
+  const getTimingBadgeColors = () => {
+    return {
+      typeColor: getDarkerBackgroundColor(), // Use darker variant of bg color
+      statusColor: '#2C2C2E' // Keep status text dark gray
+    };
   };
 
   // Get button configuration based on status
@@ -170,7 +162,7 @@ function OrderCard({
         {/* Column 2, Spans All Rows: Timing Badge */}
         <div
           className="order-card-timing-badge"
-          style={{ backgroundColor: timingColors.background }}
+          style={{ backgroundColor: getCardBackgroundColor() }}
         >
           <span
             className="order-type"
@@ -211,12 +203,12 @@ function OrderCard({
               {/* Order Items - Display in order: Double Cheeseburger, Apple Pie, Coca-Cola L */}
               {items.map((item, index) => (
                 <div key={index} className="order-item">
-                  <span className="item-quantity">{item.quantity || 1} x</span>
-                  <div className="item-details">
-                    <span className="item-name">{item.name}</span>
-                    {item.customization && (
-                      <span className="item-customization">{item.customization}</span>
-                    )}
+                  <div className="order-item-content">
+                    <span className="item-quantity">{item.quantity || 1} x</span>
+                    <div className="item-details">
+                      <span className="item-name">{item.name}</span>
+                      
+                    </div>
                   </div>
                 </div>
               ))}

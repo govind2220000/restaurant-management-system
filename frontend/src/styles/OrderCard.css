@@ -1,7 +1,7 @@
 /* OrderCard Component Styles */
 .order-card {
-  width: 247px;
-  height: 330px;
+  width: 320px;
+  height: 420px;
   border-radius: 15px;
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -12,13 +12,13 @@
 /* Top Info Section - CSS Grid Layout */
 .order-card-top-info {
   position: absolute;
-  top: 10px;
-  left: 15px;
-  width: 217px;
-  height: 90px;
+  top: 15px;
+  left: 20px;
+  width: 280px;
+  height: 115px;
   display: grid;
-  grid-template-columns: 122px 95px;
-  grid-template-rows: 30px 30px 30px;
+  grid-template-columns: 160px 120px;
+  grid-template-rows: 38px 38px 39px;
   grid-template-areas:
     "order-header timing-badge"
     "table-info timing-badge"
@@ -30,8 +30,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 217px;
-  height: 90px;
+  width: 280px;
+  height: 115px;
   background-color: #FFFFFF;
   border-radius: 10px;
   z-index: 1;
@@ -47,7 +47,7 @@
   gap: 15px;
   z-index: 3;
   position: relative;
-  background-color: rgba(255, 0, 0, 0.1); /* Debug */
+  /* background-color: rgba(255, 0, 0, 0.1); Debug */
 }
 
 .table-info-area {
@@ -59,7 +59,7 @@
   gap: 2px;
   z-index: 3;
   position: relative;
-  background-color: rgba(0, 255, 0, 0.1); /* Debug */
+  /* background-color: rgba(0, 255, 0, 0.1); Debug */
 }
 
 .item-count-area {
@@ -69,21 +69,23 @@
   padding-left: 12px;
   z-index: 3;
   position: relative;
-  background-color: rgba(0, 0, 255, 0.1); /* Debug */
+  /* background-color: rgba(0, 0, 255, 0.1); Debug */
 }
 
 /* Timing Badge */
 .order-card-timing-badge {
   grid-area: timing-badge;
-  width: 95px;
-  height: 50px;
-  border-radius: 15px;
+  width: 120px;
+  height: 65px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  align-self: center;
-  justify-self: center;
+  align-self: start;
+  justify-self: end;
+  margin-top: 10px;
+  margin-right: 15px;
   z-index: 2;
   position: relative;
   /* Debug: border: 2px solid purple; */
@@ -92,17 +94,17 @@
 .order-type {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5em;
   text-align: center;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .ongoing-time,
 .pickup-status {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 8.5px;
+  font-size: 10px;
   line-height: 1.5em;
   text-align: center;
 }
@@ -118,7 +120,7 @@
 .order-number {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.5em;
   color: #111111;
   flex: 1;
@@ -129,7 +131,7 @@
 .table-name {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.5em;
   text-align: left;
   color: #000000;
@@ -139,7 +141,7 @@
 .order-time {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.5em;
   text-align: left;
   color: #000000;
@@ -149,7 +151,7 @@
 .item-count {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 13.5px;
+  font-size: 16px;
   line-height: 1.5em;
   text-align: left;
   color: #000000;
@@ -158,125 +160,126 @@
 /* Order List Section */
 .order-list-section {
   position: absolute;
-  top: 120px;
-  left: 14px;
-  width: 218px;
-  height: 150px;
+  top: 150px;
+  left: 20px;
+  width: 280px;
+  height: 190px;
 }
 
 .order-list-container {
   background-color: #FFFFFF;
-  border-radius: 10px;
-  width: 218px;
-  height: 150px;
+  border-radius: 12px;
+  width: 280px;
+  height: 190px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Category Header */
+/* Category Header - Sticky Title Section */
 .order-category {
-  position: absolute;
-  top: 10px;
-  left: 0;
-  width: 218px;
-  height: 15.306px;
+  position: sticky;
+  top: 0;
+  background-color: #FFFFFF;
   z-index: 3;
+  padding: 12px 20px 6px 20px;
+  border-radius: 12px 12px 0 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .category-quantity {
-  position: absolute;
-  top: 0;
-  left: 15px;
-  width: 13px;
-  height: 15.306px;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5em;
-  text-align: right;
   color: #000000;
+  flex-shrink: 0;
 }
 
 .category-name {
-  position: absolute;
-  top: 0;
-  left: 39px;
-  width: 91px;
-  height: 15.306px;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5em;
-  text-align: left;
   color: #000000;
+  flex: 1;
+}
+
+/* Order Items Section - Scrollable */
+.order-items-section {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 10px 20px;
+  gap: 4px;
 }
 
 /* Order Items */
 .order-item {
-  position: absolute;
-  left: 44px;
-  width: 159.5px;
-  height: 32.65px;
-  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 6px 0;
+  flex-shrink: 0;
 }
 
-.order-item:nth-child(3) { /* First item (Double Cheeseburger) */
-  top: 37.55px;
+.order-item-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 200px;
 }
 
-.order-item:nth-child(4) { /* Second item (Apple Pie) */
-  top: 83.47px;
-}
 
-.order-item:nth-child(5) { /* Third item (Coca-Cola L) */
-  top: 118.16px;
-}
 
 .item-quantity {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 19.2px;
-  height: 15.306px;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5em;
-  text-align: right;
   color: #000000;
+  flex-shrink: 0;
+  min-width: 25px;
 }
 
 .item-details {
-  position: relative;
-  width: 159.5px;
-  height: 32.65px;
+  display: flex;
+  flex-direction: column;
+  
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .item-name {
-  position: absolute;
-  top: 1.02px;
-  left: 26.58px;
-  width: 132.92px;
-  height: 13.27px;
+  padding-top: 2px;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 8.5px;
-  line-height: 1.5em;
-  text-align: left;
+  font-size: 11px;
+  line-height: 1.3em;
   color: #000000;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .item-customization {
-  position: absolute;
-  top: 19.39px;
-  left: 33.97px;
-  width: 104.86px;
-  height: 13.27px;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 8.5px;
-  line-height: 1.5em;
-  text-align: left;
+  font-size: 11px;
+  line-height: 1.3em;
   color: #FFFFFF;
+  text-align: left;
+  margin-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .no-items {
@@ -289,17 +292,17 @@
 /* Bottom Button Section */
 .order-card-bottom {
   position: absolute;
-  top: 290px;
-  left: 70px;
-  width: 107px;
-  height: 30px;
+  top: 365px;
+  left: 90px;
+  width: 140px;
+  height: 40px;
 }
 
 .order-status-button {
   position: relative;
-  width: 107px;
-  height: 30px;
-  border-radius: 15px;
+  width: 140px;
+  height: 40px;
+  border-radius: 18px;
   border: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
@@ -311,21 +314,21 @@
 
 .button-icon {
   position: absolute;
-  top: 8px;
-  left: 81px;
-  width: 8.96px;
-  height: 14.71px;
+  top: 12px;
+  left: 105px;
+  width: 12px;
+  height: 18px;
 }
 
 .button-text {
   position: absolute;
-  top: 8px;
-  left: 17px;
-  width: 56px;
-  height: 15px;
+  top: 12px;
+  left: 25px;
+  width: 75px;
+  height: 18px;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5em;
   text-align: right;
 }
