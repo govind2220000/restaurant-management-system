@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import StatsGrid from '../components/StatsGrid';
 import ChartsSection from '../components/ChartsSection';
 import ChefTable from '../components/ChefTable';
@@ -80,6 +80,23 @@ function DashboardPage() {
         <h1 className="section-title">Analytics</h1>
         <div className="dashboard-loading">
           <LoadingSpinner message="Loading dashboard data..." size="large" />
+        </div>
+      </>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <>
+        <h1 className="section-title">Analytics</h1>
+        <div className="error-container">
+          <div className="error-message">
+            Error: {error}
+            <button onClick={fetchDashboardData} className="retry-button">
+              Retry
+            </button>
+          </div>
         </div>
       </>
     );

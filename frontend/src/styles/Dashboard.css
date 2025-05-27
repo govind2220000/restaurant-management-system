@@ -209,6 +209,64 @@ body {
   flex-shrink: 0; /* Prevent title from shrinking */
 }
 
+/* Loading and Error States for Dashboard and Analytics */
+.dashboard-loading,
+.analytics-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 40px;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 40px;
+  flex-direction: column;
+}
+
+.error-message {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 20px;
+  color: #c33;
+  text-align: center;
+  max-width: 400px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.retry-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.retry-button:hover {
+  background-color: #0056b3;
+}
+
+.retry-button:active {
+  background-color: #004494;
+  transform: translateY(1px);
+}
+
 /* Stats Cards - Responsive Grid Layout */
 .stats-grid {
   display: grid;

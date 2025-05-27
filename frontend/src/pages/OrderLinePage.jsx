@@ -30,61 +30,51 @@ function OrderLinePage() {
 
 
 
-  // Show loading state
-  if (loading) {
-    return (
-      <>
-        <h1 className="section-title">Order Line</h1>
-        <div className="loading-container">
-          <div className="loading-spinner">Loading orders...</div>
-        </div>
-      </>
-    );
-  }
-
-  // Show error state
-  if (error) {
-    return (
-      <>
-        <h1 className="section-title">Order Line</h1>
-        <div className="error-container">
-          <div className="error-message">
-            Error: {error}
-            <button onClick={loadOrders} className="retry-button">
-              Retry
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  }
-
   return (
-    <>
-      <h1 className="section-title">Order Line</h1>
+    <div className="orders-page-container">
+      {/* Sticky Title */}
+      <h1 className="section-title sticky-title">Order Line</h1>
 
-      <div className="orders-grid">
-        {orders.length > 0 ? (
-          orders.map(order => (
-            <OrderCard
-              key={order.id}
-              id={order.id}
-              orderNumber={order.orderNumber}
-              orderType={order.orderType}
-              orderStatus={order.orderStatus}
-              tableName={order.tableName}
-              orderTime={order.orderTime}
-              orderStartTime={order.orderStartTime}
-              items={order.items}
-            />
-          ))
+      {/* Scrollable Content Area */}
+      <div className="orders-content">
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner">Loading orders...</div>
+          </div>
+        ) : error ? (
+          <div className="error-container">
+            <div className="error-message">
+              Error: {error}
+              <button onClick={loadOrders} className="retry-button">
+                Retry
+              </button>
+            </div>
+          </div>
         ) : (
-          <div className="no-orders">
-            <p>No orders found</p>
+          <div className="orders-grid">
+            {orders.length > 0 ? (
+              orders.map(order => (
+                <OrderCard
+                  key={order.id}
+                  id={order.id}
+                  orderNumber={order.orderNumber}
+                  orderType={order.orderType}
+                  orderStatus={order.orderStatus}
+                  tableName={order.tableName}
+                  orderTime={order.orderTime}
+                  orderStartTime={order.orderStartTime}
+                  items={order.items}
+                />
+              ))
+            ) : (
+              <div className="no-orders">
+                <p>No orders found</p>
+              </div>
+            )}
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

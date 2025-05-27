@@ -5,14 +5,65 @@
   padding: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   flex: 1; /* Take remaining space */
-  overflow-y: auto; /* Allow internal scrolling */
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent section-level scrolling */
   display: flex;
   flex-direction: column;
   height: 100%; /* Take full height of content area */
 }
 
-/* Section title for orders page */
+/* Orders Page Container */
+.orders-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Sticky Title */
+.sticky-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #565656;
+  margin: 0 0 20px 0;
+  padding: 0;
+  flex-shrink: 0; /* Prevent title from shrinking */
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+  
+  padding-bottom: 15px;
+}
+
+/* Scrollable Content Area */
+.orders-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 5px; /* Space for scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #d9d9d9 transparent;
+}
+
+/* Custom scrollbar for orders content */
+.orders-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.orders-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.orders-content::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 3px;
+}
+
+.orders-content::-webkit-scrollbar-thumb:hover {
+  background-color: #bababa;
+}
+
+/* Section title for orders page (legacy support) */
 .orders-section .section-title {
   font-size: 24px;
   font-weight: 600;
@@ -26,20 +77,30 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 25px;
-  padding: 20px 0;
+  padding: 0 0 20px 0; /* Remove top padding since title is sticky */
   justify-items: center;
+  min-height: min-content; /* Allow grid to size based on content */
 }
 
 /* Responsive styles for orders section */
 @media (max-width: 1024px) and (min-width: 769px) {
   .orders-section {
-    max-height: none; /* Remove height constraints */
-    overflow: visible; /* Allow content overflow */
+    overflow: hidden; /* Maintain container structure */
+  }
+
+  .orders-content {
+    padding-right: 3px; /* Adjust scrollbar space for medium screens */
   }
 
   .orders-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 15px;
+  }
+
+  .sticky-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
   }
 }
 
@@ -47,16 +108,23 @@
   .orders-section {
     padding: 20px 20px 15px 20px; /* Reduced bottom padding for mobile */
     border-radius: 20px;
-    max-height: none; /* Remove height constraints */
-    overflow: visible; /* Allow content overflow */
-    flex: none; /* Remove flex constraints */
-    display: block; /* Use normal block layout */
+    overflow: hidden; /* Maintain container structure */
+  }
+
+  .orders-content {
+    padding-right: 2px; /* Minimal scrollbar space for mobile */
   }
 
   .orders-grid {
     grid-template-columns: 1fr;
     gap: 15px;
-    padding: 15px 0;
+    padding: 0 0 15px 0;
+  }
+
+  .sticky-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
   }
 }
 
