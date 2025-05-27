@@ -46,7 +46,7 @@ function SeatsPage() {
       setError(err.message || 'Failed to delete table');
       // Show error toast
       showError(err.message || 'Failed to delete table');
-      throw err; // Re-throw to let TablesGrid handle the error state
+      await loadTables();
     }
     finally {
       setLoading(false);
