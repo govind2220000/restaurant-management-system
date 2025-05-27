@@ -1,0 +1,408 @@
+/* OrderCard Component Styles */
+.order-card {
+  width: 247px;
+  height: 330px;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  overflow: hidden;
+}
+
+/* Top Info Section - CSS Grid Layout */
+.order-card-top-info {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  width: 217px;
+  height: 90px;
+  display: grid;
+  grid-template-columns: 122px 95px;
+  grid-template-rows: 30px 30px 30px;
+  grid-template-areas:
+    "order-header timing-badge"
+    "table-info timing-badge"
+    "item-count timing-badge";
+  z-index: 2;
+}
+
+.order-card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 217px;
+  height: 90px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* Grid Areas */
+.order-header-area {
+  grid-area: order-header;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+  gap: 15px;
+  z-index: 3;
+  position: relative;
+  background-color: rgba(255, 0, 0, 0.1); /* Debug */
+}
+
+.table-info-area {
+  grid-area: table-info;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 12px;
+  gap: 2px;
+  z-index: 3;
+  position: relative;
+  background-color: rgba(0, 255, 0, 0.1); /* Debug */
+}
+
+.item-count-area {
+  grid-area: item-count;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  z-index: 3;
+  position: relative;
+  background-color: rgba(0, 0, 255, 0.1); /* Debug */
+}
+
+/* Timing Badge */
+.order-card-timing-badge {
+  grid-area: timing-badge;
+  width: 95px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  z-index: 2;
+  position: relative;
+  /* Debug: border: 2px solid purple; */
+}
+
+.order-type {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5em;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.ongoing-time,
+.pickup-status {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 8.5px;
+  line-height: 1.5em;
+  text-align: center;
+}
+
+/* Order Icon */
+.order-icon {
+  width: 11.95px;
+  height: 19.61px;
+  flex-shrink: 0;
+}
+
+/* Order Number */
+.order-number {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5em;
+  color: #111111;
+  flex: 1;
+  text-align: left;
+}
+
+/* Table Name */
+.table-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 1.5em;
+  text-align: left;
+  color: #000000;
+}
+
+/* Order Time */
+.order-time {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 1.5em;
+  text-align: left;
+  color: #000000;
+}
+
+/* Item Count */
+.item-count {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 13.5px;
+  line-height: 1.5em;
+  text-align: left;
+  color: #000000;
+}
+
+/* Order List Section */
+.order-list-section {
+  position: absolute;
+  top: 120px;
+  left: 14px;
+  width: 218px;
+  height: 150px;
+}
+
+.order-list-container {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  width: 218px;
+  height: 150px;
+  position: relative;
+}
+
+/* Category Header */
+.order-category {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 218px;
+  height: 15.306px;
+  z-index: 3;
+}
+
+.category-quantity {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 13px;
+  height: 15.306px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5em;
+  text-align: right;
+  color: #000000;
+}
+
+.category-name {
+  position: absolute;
+  top: 0;
+  left: 39px;
+  width: 91px;
+  height: 15.306px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5em;
+  text-align: left;
+  color: #000000;
+}
+
+/* Order Items */
+.order-item {
+  position: absolute;
+  left: 44px;
+  width: 159.5px;
+  height: 32.65px;
+  z-index: 2;
+}
+
+.order-item:nth-child(3) { /* First item (Double Cheeseburger) */
+  top: 37.55px;
+}
+
+.order-item:nth-child(4) { /* Second item (Apple Pie) */
+  top: 83.47px;
+}
+
+.order-item:nth-child(5) { /* Third item (Coca-Cola L) */
+  top: 118.16px;
+}
+
+.item-quantity {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 19.2px;
+  height: 15.306px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5em;
+  text-align: right;
+  color: #000000;
+}
+
+.item-details {
+  position: relative;
+  width: 159.5px;
+  height: 32.65px;
+}
+
+.item-name {
+  position: absolute;
+  top: 1.02px;
+  left: 26.58px;
+  width: 132.92px;
+  height: 13.27px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 8.5px;
+  line-height: 1.5em;
+  text-align: left;
+  color: #000000;
+}
+
+.item-customization {
+  position: absolute;
+  top: 19.39px;
+  left: 33.97px;
+  width: 104.86px;
+  height: 13.27px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 8.5px;
+  line-height: 1.5em;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.no-items {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Bottom Button Section */
+.order-card-bottom {
+  position: absolute;
+  top: 290px;
+  left: 70px;
+  width: 107px;
+  height: 30px;
+}
+
+.order-status-button {
+  position: relative;
+  width: 107px;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.order-status-button:hover {
+  opacity: 0.8;
+}
+
+.button-icon {
+  position: absolute;
+  top: 8px;
+  left: 81px;
+  width: 8.96px;
+  height: 14.71px;
+}
+
+.button-text {
+  position: absolute;
+  top: 8px;
+  left: 17px;
+  width: 56px;
+  height: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1.5em;
+  text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .order-card {
+    width: 220px;
+    height: 300px;
+    margin: 8px;
+  }
+
+  .order-card-top-info {
+    width: 195px;
+    height: 80px;
+    grid-template-columns: 110px 85px;
+    grid-template-rows: 26px 26px 28px;
+  }
+
+  .order-card-timing-badge {
+    width: 85px;
+    height: 45px;
+  }
+
+  .order-type {
+    font-size: 9px;
+  }
+
+  .ongoing-time,
+  .pickup-status {
+    font-size: 7.5px;
+  }
+
+  .order-header-area {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-card {
+    width: 100%;
+    max-width: 280px;
+    height: 320px;
+    margin: 10px auto;
+  }
+
+  .order-card-top-info {
+    width: 217px;
+    height: 90px;
+    grid-template-columns: 122px 90px;
+    grid-template-rows: 30px 30px 30px;
+  }
+
+  .order-card-timing-badge {
+    width: 90px;
+    height: 48px;
+  }
+
+  .order-type {
+    font-size: 10px;
+  }
+
+  .ongoing-time,
+  .pickup-status {
+    font-size: 8px;
+  }
+
+  .order-card-bottom {
+    left: 60px;
+  }
+
+  .order-status-button {
+    width: 120px;
+    height: 32px;
+  }
+
+  .order-header-area {
+    gap: 15px;
+  }
+}

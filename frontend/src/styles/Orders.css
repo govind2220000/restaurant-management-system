@@ -21,11 +21,25 @@
   flex-shrink: 0;
 }
 
+/* Orders Grid Layout */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(247px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+  justify-items: center;
+}
+
 /* Responsive styles for orders section */
 @media (max-width: 1024px) and (min-width: 769px) {
   .orders-section {
     max-height: none; /* Remove height constraints */
     overflow: visible; /* Allow content overflow */
+  }
+
+  .orders-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
   }
 }
 
@@ -37,5 +51,11 @@
     overflow: visible; /* Allow content overflow */
     flex: none; /* Remove flex constraints */
     display: block; /* Use normal block layout */
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px 0;
   }
 }
