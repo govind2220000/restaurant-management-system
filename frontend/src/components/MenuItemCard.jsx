@@ -10,7 +10,7 @@ const MenuItemCard = ({ id, name, price, image, onAddItem }) => {
     <div className="menu-item-card" onClick={handleAddClick}>
       {/* Top Section (50% height) - Image only */}
       <div className="menu-item-image-section">
-        <img src={image} alt={name} />
+        <img src={`${image}?auto=compress&cs=tinysrgb&w=612&h=612`} alt={name} />
       </div>
 
       {/* Bottom Section (50% height) - Content area */}
