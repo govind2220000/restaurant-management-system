@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function SearchHeader() {
   return (
@@ -12,6 +13,9 @@ function SearchHeader() {
           </div>
           <input type="text" placeholder="Filter..." className="search-input" />
         </div>
+      </div>
+      <div className="header-nav">
+        <Link to="/client" className="client-link">Client View</Link>
       </div>
     </div>
   );

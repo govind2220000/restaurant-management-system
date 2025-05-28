@@ -3,20 +3,20 @@ import Sidebar from './Sidebar';
 import SearchHeader from './SearchHeader';
 import '../styles/Dashboard.css';
 
-function Layout() {
+function AdminLayout() {
   const location = useLocation();
 
   // Function to determine the appropriate section class based on current route
   const getSectionClass = () => {
     const pathname = location.pathname;
 
-    if (pathname === '/dashboard' || pathname === '/') {
+    if (pathname === '/admin/dashboard' || pathname === '/admin') {
       return 'dashboard-section';
-    } else if (pathname === '/seats') {
+    } else if (pathname === '/admin/seats') {
       return 'seats-section';
-    } else if (pathname === '/order-line') {
+    } else if (pathname === '/admin/order-line') {
       return 'orders-section';
-    } else if (pathname === '/analytics') {
+    } else if (pathname === '/admin/analytics') {
       return 'analytics-section';
     }
 
@@ -47,4 +47,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default AdminLayout;

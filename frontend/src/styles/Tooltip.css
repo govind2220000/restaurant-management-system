@@ -1,0 +1,101 @@
+/* Tooltip Styles */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-family: 'Inter', sans-serif;
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+
+
+/* Right positioned tooltip (default for sidebar) */
+.tooltip-right {
+  left: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tooltip-arrow-right {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-right-color: #333;
+}
+
+/* Left positioned tooltip */
+.tooltip-left {
+  right: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tooltip-arrow-left {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-left-color: #333;
+}
+
+/* Top positioned tooltip */
+.tooltip-top {
+  bottom: calc(100% + 15px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-arrow-top {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
+/* Bottom positioned tooltip */
+.tooltip-bottom {
+  top: calc(100% + 15px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-arrow-bottom {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tooltip {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .tooltip-arrow-right,
+  .tooltip-arrow-left,
+  .tooltip-arrow-top,
+  .tooltip-arrow-bottom {
+    border-width: 4px;
+  }
+}
