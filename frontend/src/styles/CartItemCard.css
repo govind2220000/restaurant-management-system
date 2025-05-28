@@ -1,0 +1,207 @@
+/* Cart Item Card Styles - Based on Figma Design */
+.cart-item-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Item Image Container */
+.cart-item-image-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cart-item-image-wrapper {
+  width: 174px;
+  height: 122px;
+  background: #D9D9D9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.17);
+  overflow: hidden;
+  position: relative;
+}
+
+.cart-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Remove Button */
+.cart-item-remove-btn {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.remove-btn-circle {
+  width: 27px;
+  height: 27px;
+  background: #E04444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Item Details */
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 6px;
+}
+
+.cart-item-name {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.17;
+  color: #000000;
+  margin: 0;
+}
+
+.cart-item-size {
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #000000;
+  opacity: 0.5;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cart-item-price {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.17;
+  color: #272727;
+  margin: 0;
+  margin-top: 8px;
+}
+
+/* Quantity Controls */
+.cart-item-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 85px;
+}
+
+.quantity-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(16, 16, 16, 0.4);
+  border-radius: 5px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.quantity-btn:hover {
+  background: #F5F5F5;
+}
+
+.quantity-btn:active {
+  transform: scale(0.95);
+}
+
+.decrease-btn {
+  opacity: 0.32;
+}
+
+.decrease-btn span {
+  font-family: 'Gilroy-SemiBold', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.17;
+  color: #101010;
+}
+
+.increase-btn {
+  background: #FFFFFF;
+}
+
+.quantity-display {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.21;
+  color: #101010;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 428px) {
+  .cart-item-card {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .cart-item-image-wrapper {
+    width: 140px;
+    height: 98px;
+  }
+
+  .cart-item-name {
+    font-size: 16px;
+  }
+
+  .cart-item-size {
+    font-size: 12px;
+  }
+
+  .cart-item-price {
+    font-size: 11px;
+  }
+
+  .cart-item-quantity-controls {
+    margin-top: 65px;
+    gap: 12px;
+  }
+
+  .quantity-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .decrease-btn span {
+    font-size: 14px;
+  }
+
+  .quantity-display {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  .cart-item-image-wrapper {
+    width: 120px;
+    height: 84px;
+  }
+
+  .cart-item-name {
+    font-size: 14px;
+  }
+
+  .cart-item-quantity-controls {
+    margin-top: 55px;
+  }
+}

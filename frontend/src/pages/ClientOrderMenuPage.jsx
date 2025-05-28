@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/ClientOrderMenuPage.css';
 import { PizzaIcon, BurgerIcon, DrinkIcon, FrenchFriesIcon, VeggiesIcon } from '../assets/icons/CategoryIcons';
 import MenuItemCard from '../components/MenuItemCard';
@@ -7,6 +8,7 @@ import { useMenuContext } from '../components/ClientLayout';
 
 function ClientOrderMenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('Pizza');
+  const navigate = useNavigate();
 
   // Use global menu context (now includes cart functionality)
   const {
@@ -14,7 +16,8 @@ function ClientOrderMenuPage() {
     filteredMenuItems,
     loading,
     error,
-    addToCart
+    addToCart,
+    getTotalItems
   } = useMenuContext();
 
   const categories = [
@@ -50,6 +53,17 @@ function ClientOrderMenuPage() {
   // Handle adding items to cart - now uses context
   const handleAddItem = (item) => {
     addToCart(item);
+  };
+
+  // Handle navigation to cart page
+  const handleNextClick = () => {
+    const totalItems = getTotalItems();
+    if (totalItems > 0) {
+      navigate('/client/cart');
+    } else {
+      // Optional: Show a message that cart is empty
+      alert('Please add some items to your cart first!');
+    }
   };
 
   return (
@@ -117,6 +131,7 @@ function ClientOrderMenuPage() {
                   name={item.name}
                   price={item.price}
                   image={item.image}
+                  tax={item.tax}
                   onAddItem={handleAddItem}
                 />
               ))
@@ -126,7 +141,9 @@ function ClientOrderMenuPage() {
 
         {/* Fixed bottom action area - outside scrollable container */}
         <div className="fixed-bottom-action-area">
-          <button className="next-btn">Next</button>
+          <button className="next-btn" onClick={handleNextClick}>
+            Next {getTotalItems() > 0 && `(${getTotalItems()})`}
+          </button>
         </div>
       </div>
     </div>

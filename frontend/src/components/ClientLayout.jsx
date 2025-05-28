@@ -32,6 +32,11 @@ function ClientLayout() {
         setLoading(true);
         setError(null);
         const items = await fetchMenuItems();
+        console.log('Fetched menu items with tax info:', items.map(item => ({
+          name: item.name,
+          price: item.price,
+          tax: item.tax
+        })));
         setMenuItems(items);
       } catch (err) {
         console.error('Failed to load menu items:', err);
@@ -81,9 +86,11 @@ function ClientLayout() {
           name: item.name,
           price: item.price,
           image: item.image,
+          tax: item.tax || 0, // Include tax field from menu item
           quantity: 1
         }];
-        console.log(`Added ${item.name} to cart (quantity: 1)`);
+        console.log(`Added ${item.name} to cart (quantity: 1, tax: ${item.tax || 0})`);
+        console.log('New cart:', newCart);
         return newCart;
       }
     });
@@ -99,13 +106,15 @@ function ClientLayout() {
       return;
     }
 
-    setCartItems(prevCart =>
-      prevCart.map(item =>
+    setCartItems(prevCart => {
+      const updatedCart = prevCart.map(item =>
         item.id === itemId
           ? { ...item, quantity: newQuantity }
           : item
-      )
-    );
+      );
+      console.log(`Updated quantity for item ${itemId} to ${newQuantity}. New cart:`, updatedCart);
+      return updatedCart;
+    });
   };
 
   const clearCart = () => {
@@ -118,6 +127,30 @@ function ClientLayout() {
 
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const getTotalTax = () => {
+    const totalTax = cartItems.reduce((total, item) => {
+      // Use the stored tax value from menu item (should always be available now)
+      const itemTax = item.tax || 0;
+      const itemTotalTax = itemTax * item.quantity;
+      console.log(`Tax calculation for ${item.name}: ${itemTax} × ${item.quantity} = ${itemTotalTax}`);
+      return total + itemTotalTax;
+    }, 0);
+    console.log(`Total tax for cart: ${totalTax}`);
+    return totalTax;
+  };
+
+  const getDeliveryCharge = (orderType = 'dineIn') => {
+    // Delivery charge: $1 for Take Away orders, Free for Dine In
+    return orderType === 'takeAway' ? 1 : 0;
+  };
+
+  const getGrandTotal = (orderType = 'dineIn') => {
+    const itemTotal = getTotalPrice();
+    const tax = getTotalTax();
+    const deliveryCharge = getDeliveryCharge(orderType);
+    return itemTotal + tax + deliveryCharge;
   };
 
   // Simple context value - all data and functions in one object
@@ -137,7 +170,10 @@ function ClientLayout() {
     updateQuantity,
     clearCart,
     getTotalItems,
-    getTotalPrice
+    getTotalPrice,
+    getTotalTax,
+    getDeliveryCharge,
+    getGrandTotal
   };
 
   return (

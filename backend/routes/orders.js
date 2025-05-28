@@ -164,7 +164,7 @@ router.post('/', async (req, res) => {
     console.log(`Total preparation time for all items: ${totalPreparationTimeMinutes} minutes`);
 
     // Calculate total
-    const total = subtotal + totalTax;
+    const total = subtotal + totalTax + req.body.deliveryCharge;
 
     const orderData = {
       orderNumber,
@@ -173,8 +173,10 @@ router.post('/', async (req, res) => {
       table: tableId, // Use the auto-assigned table if applicable
       customer: req.body.customer,
       cookingInstructions: req.body.cookingInstructions,
+
       subtotal,
       tax: totalTax,
+      deliveryCharge:req.body.deliveryCharge,
       total,
       totalPreparationTimeMinutes,
       status: 'Processing'

@@ -10,6 +10,7 @@ import SeatsPage from './pages/SeatsPage';
 import OrderLinePage from './pages/OrderLinePage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import ClientOrderMenuPage from './pages/ClientOrderMenuPage';
+import ClientCartPage from './pages/ClientCartPage';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/client" element={<ClientLayout />}>
               <Route index element={<Navigate to="order-menu" replace />} />
               <Route path="order-menu" element={<ClientOrderMenuPage />} />
+              <Route path="cart" element={<ClientCartPage />} />
             </Route>
           </Routes>
         </Router>

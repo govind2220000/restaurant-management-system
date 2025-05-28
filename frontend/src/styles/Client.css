@@ -1,6 +1,6 @@
 /* Client Layout Styles */
 .client-layout {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #FFFFFF;
   display: flex;
   flex-direction: column;
