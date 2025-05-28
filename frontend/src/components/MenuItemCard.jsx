@@ -20,7 +20,7 @@ const MenuItemCard = ({ id, name, price, image, onAddItem }) => {
 
         {/* Bottom row with price and add button */}
         <div className="menu-item-bottom-row">
-          <p className="menu-item-price">₹ {price}</p>
+          <p className="menu-item-price">$ {price}</p>
           <button
             className="add-item-btn"
             onClick={(e) => {

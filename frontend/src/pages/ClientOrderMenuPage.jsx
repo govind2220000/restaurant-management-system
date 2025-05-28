@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/ClientOrderMenuPage.css';
 import { PizzaIcon, BurgerIcon, DrinkIcon, FrenchFriesIcon, VeggiesIcon } from '../assets/icons/CategoryIcons';
 import MenuItemCard from '../components/MenuItemCard';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { fetchMenuItems } from '../api';
 
 function ClientOrderMenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('Pizza');
   const [searchQuery, setSearchQuery] = useState('');
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const categories = [
     {
@@ -21,7 +26,7 @@ function ClientOrderMenuPage() {
       icon: <DrinkIcon />
     },
     {
-      name: 'French fries',
+      name: 'French Fries',
       icon: <FrenchFriesIcon />
     },
     {
@@ -30,125 +35,34 @@ function ClientOrderMenuPage() {
     }
   ];
 
-  const menuItems = [
-    // Pizza items
-    {
-      id: 1,
-      name: 'Pepperoni',
-      price: 200,
-      category: 'Pizza',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 2,
-      name: 'Marinara',
-      price: 200,
-      category: 'Pizza',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 3,
-      name: 'Capricciosa',
-      price: 200,
-      category: 'Pizza',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 4,
-      name: 'Sicilian',
-      price: 150,
-      category: 'Pizza',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 5,
-      name: 'Marinara Special',
-      price: 90,
-      category: 'Pizza',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 6,
-      name: 'Pepperoni Deluxe',
-      price: 300,
-      category: 'Pizza',
-      image: '/api/placeholder/174/84'
-    },
-    // Burger items
-    {
-      id: 7,
-      name: 'Classic Burger',
-      price: 180,
-      category: 'Burger',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 8,
-      name: 'Cheese Burger',
-      price: 220,
-      category: 'Burger',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 9,
-      name: 'Chicken Burger',
-      price: 250,
-      category: 'Burger',
-      image: '/api/placeholder/174/84'
-    },
-    // Drink items
-    {
-      id: 10,
-      name: 'Coca Cola',
-      price: 50,
-      category: 'Drink',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 11,
-      name: 'Orange Juice',
-      price: 80,
-      category: 'Drink',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 12,
-      name: 'Coffee',
-      price: 60,
-      category: 'Drink',
-      image: '/api/placeholder/174/84'
-    },
-    // French fries items
-    {
-      id: 13,
-      name: 'Regular Fries',
-      price: 120,
-      category: 'French fries',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 14,
-      name: 'Cheese Fries',
-      price: 150,
-      category: 'French fries',
-      image: '/api/placeholder/174/84'
-    },
-    // Veggies items
-    {
-      id: 15,
-      name: 'Garden Salad',
-      price: 140,
-      category: 'Veggies',
-      image: '/api/placeholder/174/84'
-    },
-    {
-      id: 16,
-      name: 'Grilled Vegetables',
-      price: 160,
-      category: 'Veggies',
-      image: '/api/placeholder/174/84'
-    }
-  ];
+  // Load menu items on component mount and when category changes
+  useEffect(() => {
+    const loadMenuItems = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Option 1: Fetch all items and filter client-side (better for responsiveness)
+        const items = await fetchMenuItems();
+        setMenuItems(items);
+        console.log(items)
+
+       
+
+      } catch (err) {
+        console.error('Failed to load menu items:', err);
+        setError(err.message || 'Failed to load menu items');
+        setMenuItems([]); // Set empty array on error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMenuItems();
+  }, []); // Load all items once on mount
+
+  // Alternative: Load items when category changes (uncomment if using Option 2)
+  // }, [selectedCategory]);
 
   const filteredItems = menuItems.filter(item =>
     item.category === selectedCategory &&
@@ -216,16 +130,43 @@ function ClientOrderMenuPage() {
         <div className="menu-items-container">
           <h2 className="menu-category-title">{selectedCategory}</h2>
           <div className="menu-items-grid">
-            {filteredItems.map((item) => (
-              <MenuItemCard
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                price={item.price}
-                image={item.image}
-                onAddItem={handleAddItem}
-              />
-            ))}
+            {loading ? (
+              <div className="menu-loading-container">
+                <LoadingSpinner message="Loading menu items..." size="medium" />
+              </div>
+            ) : error ? (
+              <div className="menu-error-container">
+                <p className="error-message">
+                  {error}
+                </p>
+                <button
+                  className="retry-btn"
+                  onClick={() => window.location.reload()}
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : filteredItems.length === 0 ? (
+              <div className="menu-empty-container">
+                <p className="empty-message">
+                  {searchQuery
+                    ? `No items found for "${searchQuery}" in ${selectedCategory}`
+                    : `No ${selectedCategory} items available`
+                  }
+                </p>
+              </div>
+            ) : (
+              filteredItems.map((item) => (
+                <MenuItemCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  price={item.price}
+                  image={item.image}
+                  onAddItem={handleAddItem}
+                />
+              ))
+            )}
           </div>
 
           {/* Bottom action area - now inside menu-items-container */}
