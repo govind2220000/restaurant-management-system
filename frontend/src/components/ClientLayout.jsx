@@ -35,7 +35,8 @@ function ClientLayout() {
         console.log('Fetched menu items with tax info:', items.map(item => ({
           name: item.name,
           price: item.price,
-          tax: item.tax
+          tax: item.tax,
+          preparationTimeInMinutes: item.preparationTimeMinutes
         })));
         setMenuItems(items);
       } catch (err) {
