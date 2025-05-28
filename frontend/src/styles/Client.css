@@ -189,7 +189,11 @@
 }
 
 .category-btn svg {
-  fill: #F5F5F5;
+  fill: #616161; /* Default icon color for inactive state */
+}
+
+.category-btn.active svg {
+  fill: #F5F5F5; /* Light icon color for active state */
 }
 
 .category-icon {
