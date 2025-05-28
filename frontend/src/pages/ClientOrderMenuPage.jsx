@@ -197,13 +197,14 @@ function ClientOrderMenuPage() {
           {categories.map((category) => (
             <button
               key={category.name}
-              className={`category-btn ${selectedCategory === category.name ? 'active' : ''}`}
+              className={`category-btn1 ${selectedCategory === category.name ? 'active' : ''}`}
               onClick={() => setSelectedCategory(category.name)}
             >
               <div className="category-icon">
                 {category.icon}
+                <span className="category-name">{category.name}</span>
               </div>
-              <span className="category-name">{category.name}</span>
+              
             </button>
           ))}
         </div>
