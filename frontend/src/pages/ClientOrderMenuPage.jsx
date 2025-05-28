@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Client.css';
+import '../styles/ClientOrderMenuPage.css';
 import { PizzaIcon, BurgerIcon, DrinkIcon, FrenchFriesIcon, VeggiesIcon } from '../assets/icons/CategoryIcons';
 import MenuItemCard from '../components/MenuItemCard';
 
@@ -204,7 +204,7 @@ function ClientOrderMenuPage() {
                 {category.icon}
                 <span className="category-name">{category.name}</span>
               </div>
-              
+
             </button>
           ))}
         </div>
