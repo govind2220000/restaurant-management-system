@@ -104,8 +104,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 30px 30px 30px;
+  padding: 0 30px 0 30px; /* Removed bottom padding since button is now fixed */
   overflow: hidden;
+  position: relative; /* For positioning fixed button */
 }
 
 /* Menu items container (takes remaining space within section 4) */
@@ -115,6 +116,7 @@
   flex-direction: column;
   overflow: hidden;
   gap: 0;
+  padding-bottom: 80px; /* Space for fixed button */
 }
 
 .menu-category-title {
@@ -129,7 +131,10 @@
   height: 38px;
 }
 
-.menu-items-grid {
+/* Removed menu-items-grid - now using direct scrollable wrapper */
+
+/* Scrollable wrapper for menu item cards */
+.scrollable-menu-items-wrapper {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 174px);
@@ -142,21 +147,21 @@
   scrollbar-color: #d9d9d9 transparent;
 }
 
-/* Custom scrollbar for menu items grid */
-.menu-items-grid::-webkit-scrollbar {
+/* Custom scrollbar for scrollable menu items wrapper */
+.scrollable-menu-items-wrapper::-webkit-scrollbar {
   width: 6px;
 }
 
-.menu-items-grid::-webkit-scrollbar-track {
+.scrollable-menu-items-wrapper::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.menu-items-grid::-webkit-scrollbar-thumb {
+.scrollable-menu-items-wrapper::-webkit-scrollbar-thumb {
   background-color: #d9d9d9;
   border-radius: 3px;
 }
 
-.menu-items-grid::-webkit-scrollbar-thumb:hover {
+.scrollable-menu-items-wrapper::-webkit-scrollbar-thumb:hover {
   background-color: #bababa;
 }
 
@@ -210,15 +215,19 @@
   transform: translateY(-1px);
 }
 
-/* Bottom action area - Fixed at bottom of menu-items-container */
-.bottom-action-area {
-  flex-shrink: 0;
-  padding: 20px 0 0 0;
+/* Fixed bottom action area - Always visible at bottom of viewport */
+.fixed-bottom-action-area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 30px;
   display: flex;
   justify-content: flex-end;
   background: #FFFFFF;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  margin-top: auto;
+  z-index: 100;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .next-btn {
@@ -251,7 +260,11 @@
   }
 
   .menu-content-section {
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 0 20px;
+  }
+
+  .fixed-bottom-action-area {
+    padding: 15px 20px;
   }
 
   .categories-container {
@@ -259,7 +272,7 @@
     justify-content: space-between;
   }
 
-  .menu-items-grid {
+  .scrollable-menu-items-wrapper {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     padding-bottom: 15px;
@@ -274,10 +287,6 @@
     width: 100%;
   }
 
-  .bottom-action-area {
-    padding: 15px 0 0 0;
-  }
-
   .next-btn {
     width: 120px;
     height: 36px;
@@ -288,16 +297,16 @@
 /* Additional responsive breakpoints for smaller screens */
 @media (max-width: 375px) {
   .menu-content-section {
-    padding: 0 15px 15px 15px;
+    padding: 0 15px 0 15px;
   }
 
-  .menu-items-grid {
+  .fixed-bottom-action-area {
+    padding: 12px 15px;
+  }
+
+  .scrollable-menu-items-wrapper {
     gap: 12px;
     padding-bottom: 12px;
-  }
-
-  .bottom-action-area {
-    padding: 12px 0 0 0;
   }
 
   .next-btn {
@@ -309,16 +318,16 @@
 
 @media (max-width: 320px) {
   .menu-content-section {
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 0 10px;
   }
 
-  .menu-items-grid {
+  .fixed-bottom-action-area {
+    padding: 10px;
+  }
+
+  .scrollable-menu-items-wrapper {
     gap: 10px;
     padding-bottom: 10px;
-  }
-
-  .bottom-action-area {
-    padding: 10px 0 0 0;
   }
 
   .next-btn {

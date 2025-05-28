@@ -38,8 +38,10 @@
   background: #F0F5F3;
   border-radius: 18px;
   box-shadow: 1px 4px 14px -1px rgba(0, 0, 0, 0.25);
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 90vw; /* Fallback for older browsers */
+  max-width: 90dvw; /* Dynamic viewport width for mobile */
+  max-height: 90vh; /* Fallback for older browsers */
+  max-height: 90dvh; /* Dynamic viewport height for mobile address bar handling */
   overflow-y: auto;
   position: relative;
   pointer-events: auto; /* Enable clicks on modal content */

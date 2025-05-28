@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/ClientOrderMenuPage.css';
 import { PizzaIcon, BurgerIcon, DrinkIcon, FrenchFriesIcon, VeggiesIcon } from '../assets/icons/CategoryIcons';
 import MenuItemCard from '../components/MenuItemCard';
@@ -8,8 +8,14 @@ import { useMenuContext } from '../components/ClientLayout';
 function ClientOrderMenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('Pizza');
 
-  // Use global menu context
-  const { searchQuery, filteredMenuItems, loading, error } = useMenuContext();
+  // Use global menu context (now includes cart functionality)
+  const {
+    searchQuery,
+    filteredMenuItems,
+    loading,
+    error,
+    addToCart
+  } = useMenuContext();
 
   const categories = [
     {
@@ -39,18 +45,11 @@ function ClientOrderMenuPage() {
     ? filteredMenuItems // If searching, show ALL matching items across categories
     : filteredMenuItems.filter(item => item.category === selectedCategory); // If not searching, filter by category
 
-  // Debug logging to help verify the implementation
-  console.log('Search Query:', searchQuery);
-  console.log('Selected Category:', selectedCategory);
-  console.log('All Menu Items:', filteredMenuItems.length);
-  console.log('Final Filtered Items:', filteredItems.length);
-  console.log('Is Searching:', searchQuery.trim() !== '');
+  // Removed debug logging - keeping code clean
 
-  // Handle adding items to cart
+  // Handle adding items to cart - now uses context
   const handleAddItem = (item) => {
-    console.log('Adding item to cart:', item);
-    // TODO: Implement cart functionality
-    // This could dispatch to a cart context, call an API, etc.
+    addToCart(item);
   };
 
   return (
@@ -79,12 +78,12 @@ function ClientOrderMenuPage() {
 
       {/* Section 2: Menu Content (flex container that takes remaining space) */}
       <div className="menu-content-section">
-        {/* Menu items container with next button */}
+        {/* Menu items container - scrollable area */}
         <div className="menu-items-container">
           <h2 className="menu-category-title">
             {searchQuery.trim() ? `Search Results for "${searchQuery}"` : selectedCategory}
           </h2>
-          <div className="menu-items-grid">
+          <div className="scrollable-menu-items-wrapper">
             {loading ? (
               <div className="menu-loading-container">
                 <LoadingSpinner message="Loading menu items..." size="medium" />
@@ -123,11 +122,11 @@ function ClientOrderMenuPage() {
               ))
             )}
           </div>
+        </div>
 
-          {/* Bottom action area - now inside menu-items-container */}
-          <div className="bottom-action-area">
-            <button className="next-btn">Next</button>
-          </div>
+        {/* Fixed bottom action area - outside scrollable container */}
+        <div className="fixed-bottom-action-area">
+          <button className="next-btn">Next</button>
         </div>
       </div>
     </div>
