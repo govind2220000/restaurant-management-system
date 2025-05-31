@@ -1,7 +1,21 @@
 // Client Menu API functions
 // Following the established patterns from admin API functions
 
+import axios from 'axios';
 
+// Helper function for error handling
+function handleApiError(error) {
+  if (error.response) {
+    // Server responded with error status
+    throw new Error(`API Error: ${error.response.status} - ${error.response.data?.message || 'Unknown error'}`);
+  } else if (error.request) {
+    // Network error
+    throw new Error('Network error - please check your connection');
+  } else {
+    // Other error
+    throw new Error(error.message || 'Unknown error occurred');
+  }
+}
 
 // Transform backend menu item data to frontend format
 function transformMenuItem(item) {
@@ -20,27 +34,14 @@ function transformMenuItem(item) {
 // Fetch all menu items
 export const fetchMenuItems = async () => {
   try {
-    const response = await fetch('/api/menu');
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to fetch menu items');
-    }
-
-    // Transform the data to match frontend expectations
-    const transformedItems = Array.isArray(result) 
-      ? result.map(transformMenuItem)
-      : [];
-
-    return transformedItems;
+    const response = await axios.get('/api/menu');
+    const items = response.data.data || [];
+    return items.map(transformMenuItem);
   } catch (error) {
     console.error('Error fetching menu items:', error);
-    throw error;
+    handleApiError(error);
   }
 };
-
-
-
 
 // Search menu items
 export const searchMenuItems = async (query) => {
@@ -49,22 +50,12 @@ export const searchMenuItems = async (query) => {
       return [];
     }
 
-    const response = await fetch(`/api/menu/search/${encodeURIComponent(query.trim())}`);
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to search menu items');
-    }
-
-    // Transform the data to match frontend expectations
-    const transformedItems = Array.isArray(result) 
-      ? result.map(transformMenuItem)
-      : [];
-
-    return transformedItems;
+    const response = await axios.get(`/api/menu/search/${encodeURIComponent(query.trim())}`);
+    const items = response.data.data || [];
+    return items.map(transformMenuItem);
   } catch (error) {
     console.error('Error searching menu items:', error);
-    throw error;
+    handleApiError(error);
   }
 };
 
@@ -82,19 +73,13 @@ export const getMenuCategories = async () => {
   }
 };
 
-// Fetch menu item by ID
-export const fetchMenuItemById = async (id) => {
+// Get menu item by ID
+export const getMenuItem = async (itemId) => {
   try {
-    const response = await fetch(`/api/menu/${id}`);
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to fetch menu item');
-    }
-
-    return transformMenuItem(result);
+    const response = await axios.get(`/api/menu/${itemId}`);
+    return transformMenuItem(response.data.data);
   } catch (error) {
-    console.error('Error fetching menu item by ID:', error);
-    throw error;
+    console.error('Error fetching menu item:', error);
+    handleApiError(error);
   }
 };

@@ -7,10 +7,13 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       }
     }
   }
 })
+// Log the backend URL being used
+console.log('Backend URL:', import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000')
+

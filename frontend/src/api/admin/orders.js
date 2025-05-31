@@ -1,128 +1,84 @@
 // Orders API functions
 // Following the established patterns from tables.js and dashboardApi.js
 
+import axios from 'axios';
+
+// Helper function for error handling
+function handleApiError(error) {
+  if (error.response) {
+    // Server responded with error status
+    throw new Error(`API Error: ${error.response.status} - ${error.response.data?.message || 'Unknown error'}`);
+  } else if (error.request) {
+    // Network error
+    throw new Error('Network error - please check your connection');
+  } else {
+    // Other error
+    throw new Error(error.message || 'Unknown error occurred');
+  }
+}
+
 // Fetch all orders
 export const fetchOrders = async () => {
   try {
-    const response = await fetch('/api/orders');
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to fetch orders');
-    }
-
-    return result.data || [];
+    const response = await axios.get('/api/orders');
+    return response.data.data || [];
   } catch (error) {
     console.error('Error fetching orders:', error);
-    throw error;
+    handleApiError(error);
   }
 };
 
 // Fetch order by ID
 export const fetchOrderById = async (orderId) => {
   try {
-    const response = await fetch(`/api/orders/${orderId}`);
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to fetch order');
-    }
-
-    return result;
+    const response = await axios.get(`/api/orders/${orderId}`);
+    return response.data;
   } catch (error) {
     console.error('Error fetching order:', error);
-    throw error;
+    handleApiError(error);
   }
 };
 
 // Create new order
 export const createOrder = async (orderData) => {
   try {
-    const response = await fetch('/api/orders', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to create order');
-    }
-
-    return result.data || result;
+    const response = await axios.post('/api/orders', orderData);
+    return response.data.data || response.data;
   } catch (error) {
     console.error('Error creating order:', error);
-    throw error;
+    handleApiError(error);
   }
 };
 
 // Update order
 export const updateOrder = async (orderId, orderData) => {
   try {
-    const response = await fetch(`/api/orders/${orderId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to update order');
-    }
-
-    return result;
+    const response = await axios.put(`/api/orders/${orderId}`, orderData);
+    return response.data;
   } catch (error) {
     console.error('Error updating order:', error);
-    throw error;
+    handleApiError(error);
   }
 };
 
 // Update order status
 export const updateOrderStatus = async (orderId, status) => {
   try {
-    const response = await fetch(`/api/orders/${orderId}/status`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to update order status');
-    }
-
-    return result;
+    const response = await axios.patch(`/api/orders/${orderId}`, { status });
+    return response.data.data || response.data;
   } catch (error) {
     console.error('Error updating order status:', error);
-    throw error;
+    handleApiError(error);
   }
 };
 
 // Delete order
 export const deleteOrder = async (orderId) => {
   try {
-    const response = await fetch(`/api/orders/${orderId}`, {
-      method: 'DELETE',
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to delete order');
-    }
-
-    return result;
+    const response = await axios.delete(`/api/orders/${orderId}`);
+    return response.data;
   } catch (error) {
     console.error('Error deleting order:', error);
-    throw error;
+    handleApiError(error);
   }
 };

@@ -1,27 +1,41 @@
 // Client Order API functions
 // Following the established patterns from menuApi.js
 
+import axios from 'axios';
+
+// Helper function for error handling
+function handleApiError(error) {
+  if (error.response) {
+    // Server responded with error status
+    throw new Error(`API Error: ${error.response.status} - ${error.response.data?.message || 'Unknown error'}`);
+  } else if (error.request) {
+    // Network error
+    throw new Error('Network error - please check your connection');
+  } else {
+    // Other error
+    throw new Error(error.message || 'Unknown error occurred');
+  }
+}
+
 // Place a new order
 export const placeOrder = async (orderData) => {
   try {
-    const response = await fetch('/api/orders', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || result.error || 'Failed to place order');
-    }
-
-    return result;
+    const response = await axios.post('/api/orders', orderData);
+    return response.data;
   } catch (error) {
     console.error('Error placing order:', error);
-    throw error;
+    handleApiError(error);
+  }
+};
+
+// Get order status
+export const getOrderStatus = async (orderId) => {
+  try {
+    const response = await axios.get(`/api/orders/${orderId}/status`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting order status:', error);
+    handleApiError(error);
   }
 };
 
