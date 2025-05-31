@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import { fetchMenuItems } from '../api';
 import '../styles/Client.css';
+import SearchIcon from '../assets/icons/SearchIcon';
 
 // Simple Menu Context - everything in one place
 const MenuContext = createContext();
@@ -190,6 +191,7 @@ function ClientLayout() {
           <div className="search-section">
             <div className="search-container">
               <div className="search-input-wrapper">
+                <SearchIcon />
                 <input
                   type="text"
                   placeholder="Search"
@@ -197,12 +199,7 @@ function ClientLayout() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="search-input"
                 />
-                <div className="search-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M0.003 0.203L21.351 21.551" stroke="#A8A8A8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M17.002 16.804L24.011 23.813" stroke="#A8A8A8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
+                
               </div>
             </div>
           </div>

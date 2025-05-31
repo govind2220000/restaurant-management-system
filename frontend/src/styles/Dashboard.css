@@ -183,7 +183,7 @@ body {
 .search-input-wrapper {
   position: relative;
   width: 300px;
-  background-color: white;
+  background-color: #F0F5F3;
   border-radius: 32px;
   padding: 12px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
