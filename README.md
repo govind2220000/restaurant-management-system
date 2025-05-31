@@ -92,7 +92,6 @@ A full-stack food ordering application with separate user and admin interfaces, 
    ```env
    PORT=8000
    MONGODB_URI=your_mongodb_uri
-   JWT_SECRET=your_jwt_secret
    ```
 
 4. Start the server:
