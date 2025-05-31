@@ -12,5 +12,5 @@ export const AdminDashboardFilterIcon = () => {
 </defs>
 </svg>
 
-  )
-}
+  );
+};

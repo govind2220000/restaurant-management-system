@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import SearchHeader from './SearchHeader';
+import { AdminSearchProvider } from '../context/AdminSearchContext';
 import '../styles/Dashboard.css';
 
 function AdminLayout() {
@@ -25,25 +26,27 @@ function AdminLayout() {
   };
 
   return (
-    <div className="dashboard-layout">
-      {/* Sidebar Container */}
-      <div className="sidebar-container">
-        <Sidebar />
-      </div>
+    <AdminSearchProvider>
+      <div className="dashboard-layout">
+        {/* Sidebar Container */}
+        <div className="sidebar-container">
+          <Sidebar />
+        </div>
 
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Header with Search */}
-        <SearchHeader />
+        {/* Main Content */}
+        <div className="main-content">
+          {/* Header with Search */}
+          <SearchHeader />
 
-        {/* Dynamic Content Area with Semantic Section Class */}
-        <div className="content-area">
-          <div className={getSectionClass()}>
-            <Outlet />
+          {/* Dynamic Content Area with Semantic Section Class */}
+          <div className="content-area">
+            <div className={getSectionClass()}>
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </AdminSearchProvider>
   );
 }
 

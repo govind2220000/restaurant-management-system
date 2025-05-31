@@ -1,8 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import avatarImage from '../assets/avatar.png';
 import Tooltip from './Tooltip';
+import { useAdminSearch } from '../context/AdminSearchContext';
 
 function Sidebar() {
+  const { clearSearch } = useAdminSearch();
+
+  const handleNavigation = () => {
+    clearSearch();
+  };
+
   return (
     <>
       <div className="profile-section">
@@ -20,6 +27,7 @@ function Sidebar() {
               to="/admin/dashboard"
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
               end
+              onClick={handleNavigation}
             >
               <div className="nav-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -33,6 +41,7 @@ function Sidebar() {
               to="/admin/seats"
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
               end
+              onClick={handleNavigation}
             >
               <div className="nav-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -46,6 +55,7 @@ function Sidebar() {
               to="/admin/order-line"
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
               end
+              onClick={handleNavigation}
             >
               <div className="nav-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -59,6 +69,7 @@ function Sidebar() {
               to="/admin/analytics"
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
               end
+              onClick={handleNavigation}
             >
               <div className="nav-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">

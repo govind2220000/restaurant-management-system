@@ -3,6 +3,7 @@ import TablesGrid from '../components/TablesGrid';
 import ToastContainer from '../components/ToastContainer';
 import useToast from '../hooks/useToast';
 import { fetchTables, deleteTable } from '../api';
+import { useAdminSearch } from '../context/AdminSearchContext';
 import '../styles/Toast.css';
 import '../styles/Seats.css';
 
@@ -11,6 +12,7 @@ function SeatsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { toasts, removeToast, showSuccess, showError } = useToast();
+  const { searchQuery, clearSearch } = useAdminSearch();
 
   // Fetch tables data from API
   useEffect(() => {
@@ -35,20 +37,18 @@ function SeatsPage() {
     try {
       setLoading(true);
       await deleteTable(tableId);
-      // Remove the deleted table from state
-      //setTables(prevTables => prevTables.filter(table => table.id !== tableId));
+      // Clear search query first
+      clearSearch();
+      // Then refresh the tables data
       const updatedTables = await fetchTables();
       setTables(updatedTables);
-      // Show success toast
       showSuccess('Table deleted successfully');
     } catch (err) {
       console.error('Failed to delete table:', err);
       setError(err.message || 'Failed to delete table');
-      // Show error toast
       showError(err.message || 'Failed to delete table');
       await loadTables();
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -68,7 +68,7 @@ function SeatsPage() {
       const formattedTable = {
         id: newTable._id,
         number: newTable.tableNumber ? newTable.tableNumber.replace('T', '') : 'Unknown',
-        name: newTable.name, // Include table name
+        name: newTable.name,
         capacity: newTable.capacity || 0,
         seats: newTable.capacity || 0,
         status: newTable.isReserved ? 'reserved' : 'available',
@@ -78,36 +78,53 @@ function SeatsPage() {
         updatedAt: newTable.updatedAt
       };
 
-      console.log('Formatted table data:', formattedTable);
-
       // Add the new table to state
       setTables(prevTables => [...prevTables, formattedTable]);
-      // Show success toast
       const tableName = formattedTable.name || `Table ${formattedTable.number}`;
       showSuccess(`${tableName} created successfully`);
     } catch (err) {
       console.error('Error formatting table data:', err);
       setError('Failed to add new table to the list');
-      // Show error toast
       showError('Failed to create table');
     }
   };
 
+  // Simple filtering of tables based on search query
+  const displayTables = searchQuery.trim() 
+    ? tables.filter(table => 
+        table.number.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (table.name && table.name.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    : tables;
+
   return (
-    <>
-      <h1 className="section-title">Tables</h1>
-
-      <TablesGrid
-        tables={tables}
-        onDeleteTable={handleDeleteTable}
-        onTableCreated={handleTableCreated}
-        loading={loading}
-        error={error}
-      />
-
-      {/* Toast Notifications */}
+    <div className="seats-page">
       <ToastContainer toasts={toasts} removeToast={removeToast} />
-    </>
+      
+      {/* Content */}
+      <div className="seats-content">
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner">Loading tables...</div>
+          </div>
+        ) : error ? (
+          <div className="error-container">
+            <div className="error-message">
+              Error: {error}
+              <button onClick={loadTables} className="retry-button">
+                Retry
+              </button>
+            </div>
+          </div>
+        ) : (
+          <TablesGrid
+            tables={displayTables}
+            onDeleteTable={handleDeleteTable}
+            onTableCreated={handleTableCreated}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
