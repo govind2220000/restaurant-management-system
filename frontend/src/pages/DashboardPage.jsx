@@ -36,7 +36,7 @@ function DashboardPage() {
       console.error('Error fetching dashboard data:', error);
       setError(error.message);
 
-      // Fallback to empty data on error - no fake data
+      // Fallback to empty data on error
       setDashboardData({
         totalChef: 0,
         totalRevenue: '0',
@@ -69,9 +69,7 @@ function DashboardPage() {
 
   useEffect(() => {
     fetchDashboardData();
-    const interval = setInterval(() => fetchDashboardData(), 30000);
-
-    return () => clearInterval(interval);
+   
   }, []);
 
   if (loading) {

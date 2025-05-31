@@ -68,9 +68,7 @@ function AnalyticsPage() {
 
   useEffect(() => {
     fetchAnalyticsData();
-    const interval = setInterval(() => fetchAnalyticsData(), 30000);
-
-    return () => clearInterval(interval);
+    
   }, []);
 
   if (loading) {
