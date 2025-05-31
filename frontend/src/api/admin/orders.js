@@ -3,6 +3,9 @@
 
 import axios from 'axios';
 
+// Get the backend URL from environment variables
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 // Helper function for error handling
 function handleApiError(error) {
   if (error.response) {
@@ -20,7 +23,7 @@ function handleApiError(error) {
 // Fetch all orders
 export const fetchOrders = async () => {
   try {
-    const response = await axios.get('/api/orders');
+    const response = await axios.get(`${BACKEND_URL}/api/orders`);
     return response.data.data || [];
   } catch (error) {
     console.error('Error fetching orders:', error);
@@ -31,7 +34,7 @@ export const fetchOrders = async () => {
 // Fetch order by ID
 export const fetchOrderById = async (orderId) => {
   try {
-    const response = await axios.get(`/api/orders/${orderId}`);
+    const response = await axios.get(`${BACKEND_URL}/api/orders/${orderId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching order:', error);
@@ -64,8 +67,8 @@ export const updateOrder = async (orderId, orderData) => {
 // Update order status
 export const updateOrderStatus = async (orderId, status) => {
   try {
-    const response = await axios.patch(`/api/orders/${orderId}`, { status });
-    return response.data.data || response.data;
+    const response = await axios.patch(`${BACKEND_URL}/api/orders/${orderId}/status`, { status });
+    return response.data;
   } catch (error) {
     console.error('Error updating order status:', error);
     handleApiError(error);
@@ -75,7 +78,7 @@ export const updateOrderStatus = async (orderId, status) => {
 // Delete order
 export const deleteOrder = async (orderId) => {
   try {
-    const response = await axios.delete(`/api/orders/${orderId}`);
+    const response = await axios.delete(`${BACKEND_URL}/api/orders/${orderId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting order:', error);

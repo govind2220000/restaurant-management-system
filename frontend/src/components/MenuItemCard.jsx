@@ -5,7 +5,6 @@ const MenuItemCard = ({ id, name, price, image, tax, preparationTimeMinutes, onA
   const handleAddClick = () => {
     onAddItem({ id, name, price, image, tax, preparationTimeMinutes });
   };
-  console.log(preparationTimeMinutes);
 
   return (
     <div className="menu-item-card" onClick={handleAddClick}>

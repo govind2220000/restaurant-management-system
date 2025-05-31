@@ -3,6 +3,9 @@
 
 import axios from 'axios';
 
+// Get the backend URL from environment variables
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 // Helper function for error handling
 function handleApiError(error) {
   if (error.response) {
@@ -34,8 +37,8 @@ function transformMenuItem(item) {
 // Fetch all menu items
 export const fetchMenuItems = async () => {
   try {
-    const response = await axios.get('/api/menu');
-    const items = response.data.data || [];
+    const response = await axios.get(`${BACKEND_URL}/api/menu`);
+    const items = response.data;
     return items.map(transformMenuItem);
   } catch (error) {
     console.error('Error fetching menu items:', error);
@@ -50,7 +53,7 @@ export const searchMenuItems = async (query) => {
       return [];
     }
 
-    const response = await axios.get(`/api/menu/search/${encodeURIComponent(query.trim())}`);
+    const response = await axios.get(`${BACKEND_URL}/api/menu/search/${encodeURIComponent(query.trim())}`);
     const items = response.data.data || [];
     return items.map(transformMenuItem);
   } catch (error) {
@@ -76,7 +79,7 @@ export const getMenuCategories = async () => {
 // Get menu item by ID
 export const getMenuItem = async (itemId) => {
   try {
-    const response = await axios.get(`/api/menu/${itemId}`);
+    const response = await axios.get(`${BACKEND_URL}/api/menu/${itemId}`);
     return transformMenuItem(response.data.data);
   } catch (error) {
     console.error('Error fetching menu item:', error);

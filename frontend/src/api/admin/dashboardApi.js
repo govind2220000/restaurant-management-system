@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// Get the backend URL from environment variables
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 // Helper function for error handling
 function handleApiError(error) {
   if (error.response) {
@@ -21,7 +24,7 @@ function handleApiError(error) {
  */
 export async function getAnalytics(timePeriod = 'daily') {
   try {
-    const response = await axios.get('/api/dashboard/analytics', {
+    const response = await axios.get(`${BACKEND_URL}/api/dashboard/analytics`, {
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',

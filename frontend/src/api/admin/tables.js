@@ -3,6 +3,9 @@
 
 import axios from 'axios';
 
+// Get the backend URL from environment variables
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 // Helper function for error handling
 function handleApiError(error) {
   if (error.response) {
@@ -20,7 +23,7 @@ function handleApiError(error) {
 // Fetch all tables
 export const fetchTables = async () => {
   try {
-    const response = await axios.get('/api/tables');
+    const response = await axios.get(`${BACKEND_URL}/api/tables`);
     return response.data.data || [];
   } catch (error) {
     console.error('Error fetching tables:', error);
@@ -31,7 +34,7 @@ export const fetchTables = async () => {
 // Fetch single table by ID
 export const fetchTableById = async (tableId) => {
   try {
-    const response = await axios.get(`/api/tables/${tableId}`);
+    const response = await axios.get(`${BACKEND_URL}/api/tables/${tableId}`);
     return response.data.data;
   } catch (error) {
     console.error('Error fetching table:', error);
@@ -42,7 +45,7 @@ export const fetchTableById = async (tableId) => {
 // Create new table
 export const createTable = async (tableData) => {
   try {
-    const response = await axios.post('/api/tables', tableData);
+    const response = await axios.post(`${BACKEND_URL}/api/tables`, tableData);
     return response.data.data || response.data;
   } catch (error) {
     console.error('Error creating table:', error);
@@ -53,7 +56,7 @@ export const createTable = async (tableData) => {
 // Update table
 export const updateTable = async (tableId, tableData) => {
   try {
-    const response = await axios.put(`/api/tables/${tableId}`, tableData);
+    const response = await axios.put(`${BACKEND_URL}/api/tables/${tableId}`, tableData);
     return response.data.data;
   } catch (error) {
     console.error('Error updating table:', error);
@@ -64,7 +67,7 @@ export const updateTable = async (tableId, tableData) => {
 // Delete table
 export const deleteTable = async (tableId) => {
   try {
-    const response = await axios.delete(`/api/tables/${tableId}`);
+    const response = await axios.delete(`${BACKEND_URL}/api/tables/${tableId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting table:', error);
@@ -99,6 +102,17 @@ export const searchTables = async (query) => {
     return formattedTables;
   } catch (error) {
     console.error('Error searching tables:', error);
+    handleApiError(error);
+  }
+};
+
+// Update table status
+export const updateTableStatus = async (tableId, status) => {
+  try {
+    const response = await axios.patch(`${BACKEND_URL}/api/tables/${tableId}/status`, { status });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating table status:', error);
     handleApiError(error);
   }
 };

@@ -3,6 +3,9 @@
 
 import axios from 'axios';
 
+// Get the backend URL from environment variables
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 // Helper function for error handling
 function handleApiError(error) {
   if (error.response) {
@@ -16,28 +19,6 @@ function handleApiError(error) {
     throw new Error(error.message || 'Unknown error occurred');
   }
 }
-
-// Place a new order
-export const placeOrder = async (orderData) => {
-  try {
-    const response = await axios.post('/api/orders', orderData);
-    return response.data;
-  } catch (error) {
-    console.error('Error placing order:', error);
-    handleApiError(error);
-  }
-};
-
-// Get order status
-export const getOrderStatus = async (orderId) => {
-  try {
-    const response = await axios.get(`/api/orders/${orderId}/status`);
-    return response.data;
-  } catch (error) {
-    console.error('Error getting order status:', error);
-    handleApiError(error);
-  }
-};
 
 // Transform cart items to order format
 export const transformCartToOrder = (cartItems, orderType, cookingInstructions, customerInfo, deliveryCharge) => {
@@ -64,4 +45,26 @@ export const transformCartToOrder = (cartItems, orderType, cookingInstructions, 
   };
 
   return orderData;
+};
+
+// Place a new order
+export const placeOrder = async (orderData) => {
+  try {
+    const response = await axios.post(`${BACKEND_URL}/api/orders`, orderData);
+    return response.data;
+  } catch (error) {
+    console.error('Error placing order:', error);
+    handleApiError(error);
+  }
+};
+
+// Get order status
+export const getOrderStatus = async (orderId) => {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/orders/${orderId}/status`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting order status:', error);
+    handleApiError(error);
+  }
 };
