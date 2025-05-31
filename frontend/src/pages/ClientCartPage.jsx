@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMenuContext } from '../components/ClientLayout';
 import CartItemCard from '../components/CartItemCard';
+import CookingInstructionsModal from '../components/CookingInstructionsModal';
 import { placeOrder, transformCartToOrder } from '../api/client';
 import '../styles/ClientCartPage.css';
 import DeliveryTimeIcon from '../assets/icons/DeliveryTimeIcon';
@@ -21,6 +22,7 @@ function ClientCartPage() {
   const [orderType, setOrderType] = useState('dineIn'); // 'dineIn' or 'takeAway'
   const [cookingInstructions, setCookingInstructions] = useState('');
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // New state for delivery info
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -186,16 +188,23 @@ function ClientCartPage() {
       </div>
 
       {/* Cooking Instructions */}
-      <div className="cooking-instructions-section">
+      <div className="cooking-instructions-section" onClick={() => setIsModalOpen(true)}>
         <input
           type="text"
           placeholder="Add cooking instructions (optional)"
           value={cookingInstructions}
-          onChange={(e) => setCookingInstructions(e.target.value)}
+          readOnly
           className="cooking-instructions-input"
         />
         <div className="instructions-underline"></div>
       </div>
+
+      {/* Cooking Instructions Modal */}
+      <CookingInstructionsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={(instructions) => setCookingInstructions(instructions)}
+      />
 
       {/* Order Type Selection */}
       <div className="order-type-section">

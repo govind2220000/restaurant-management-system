@@ -1,0 +1,152 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+.cooking-instructions-modal {
+  width: 100%;
+  max-width: 428px;
+  background: #F0F5F3;
+  border-radius: 25px 25px 0 0;
+  padding: 28px;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.close-circle {
+  width: 61px;
+  height: 61px;
+  background: #282828;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-content h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #000000;
+  margin: 0;
+}
+
+.instructions-input-container {
+  background: #FFFFFF;
+  border: 1px solid #C7C7C7;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.instructions-textarea {
+  width: 100%;
+  min-height: 76px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000000;
+}
+
+.instructions-textarea::placeholder {
+  color: #8C7B7B;
+}
+
+.instructions-note {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.125;
+  color: #6E6E6E;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  flex: 1;
+  height: 55px;
+  border-radius: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel {
+  background: #F0F5F3;
+  color: #505050;
+  border: 1px solid #505050 !important;
+}
+
+.btn-next {
+  background: #505050;
+  color: #FEFEFE;
+}
+
+.btn-cancel:hover {
+  background: #E5EAE8;
+}
+
+.btn-next:hover {
+  background: #404040;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 428px) {
+  .cooking-instructions-modal {
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+
+  .modal-actions button {
+    height: 48px;
+    font-size: 18px;
+  }
+} 

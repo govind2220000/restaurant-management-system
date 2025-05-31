@@ -24,6 +24,12 @@
   flex-shrink: 0;
   margin-top: 20px;
   margin-bottom: 30px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.cooking-instructions-section:hover {
+  opacity: 0.8;
 }
 
 .cooking-instructions-input {
@@ -38,6 +44,7 @@
   color: #8C7B7B;
   padding: 0;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .cooking-instructions-input::placeholder {
