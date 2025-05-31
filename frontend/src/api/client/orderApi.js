@@ -26,7 +26,7 @@ export const placeOrder = async (orderData) => {
 };
 
 // Transform cart items to order format
-export const transformCartToOrder = (cartItems, orderType, cookingInstructions, customerInfo = null,deliveryCharge) => {
+export const transformCartToOrder = (cartItems, orderType, cookingInstructions, customerInfo, deliveryCharge) => {
   // Transform cart items to the format expected by the backend
   const items = cartItems.map(item => ({
     menuItem: item.id,
@@ -34,21 +34,20 @@ export const transformCartToOrder = (cartItems, orderType, cookingInstructions, 
     // Note: price will be calculated by backend from menu item data
   }));
 
+  // Create the base order data
   const orderData = {
     type: orderType === 'dineIn' ? 'Dine In' : 'Take Away',
     items,
     cookingInstructions: cookingInstructions || '',
-    deliveryCharge
-  };
-
-  // Add customer info for Take Away orders
-  if (orderType === 'takeAway' && customerInfo) {
-    orderData.customer = {
+    deliveryCharge,
+    // Always include customer info in the order
+    customer: {
       name: customerInfo.name,
       phone: customerInfo.phone,
-      address: customerInfo.address
-    };
-  }
+      // Only include address for Take Away orders
+      ...(orderType === 'takeAway' && { address: customerInfo.address })
+    }
+  };
 
   return orderData;
 };

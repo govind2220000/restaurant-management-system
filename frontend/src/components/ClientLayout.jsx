@@ -32,13 +32,9 @@ function ClientLayout() {
         setLoading(true);
         setError(null);
         const items = await fetchMenuItems();
-        console.log('Fetched menu items with tax info:', items.map(item => ({
-          name: item.name,
-          price: item.price,
-          tax: item.tax,
-          preparationTimeInMinutes: item.preparationTimeMinutes
-        })));
+        console.log('Fetched menu items with tax info and preparation time:', items);
         setMenuItems(items);
+        
       } catch (err) {
         console.error('Failed to load menu items:', err);
         setError(err.message || 'Failed to load menu items');
@@ -67,6 +63,7 @@ function ClientLayout() {
 
   // Cart functions
   const addToCart = (item) => {
+    console.log('Adding item to cart:', item); // Debug log
     setCartItems(prevCart => {
       // Check if item already exists in cart
       const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
@@ -88,7 +85,8 @@ function ClientLayout() {
           price: item.price,
           image: item.image,
           tax: item.tax || 0, // Include tax field from menu item
-          quantity: 1
+          quantity: 1,
+          preparationTimeMinutes: item.preparationTimeMinutes // Using the exact same name as backend
         }];
         console.log(`Added ${item.name} to cart (quantity: 1, tax: ${item.tax || 0})`);
         console.log('New cart:', newCart);

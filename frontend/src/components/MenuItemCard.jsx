@@ -1,10 +1,11 @@
 import AddButtonIcon from '../assets/icons/AddButtonIcon';
 import '../styles/MenuItemCard.css';
 
-const MenuItemCard = ({ id, name, price, image, tax, onAddItem }) => {
+const MenuItemCard = ({ id, name, price, image, tax, preparationTimeMinutes, onAddItem }) => {
   const handleAddClick = () => {
-    onAddItem({ id, name, price, image, tax });
+    onAddItem({ id, name, price, image, tax, preparationTimeMinutes });
   };
+  console.log(preparationTimeMinutes);
 
   return (
     <div className="menu-item-card" onClick={handleAddClick}>

@@ -10,9 +10,10 @@ function OrderCard({
   tableName,
   orderStartTime,
   orderNumber,
-  orderTime
+  orderTime,
+  preparationTimeMinutes
 }) {
-
+   console.log(preparationTimeMinutes);
   // Deterministic random function based on order ID for consistent results
   const getDeterministicRandom = (seed) => {
     if (!seed) return 0.5; // Default fallback

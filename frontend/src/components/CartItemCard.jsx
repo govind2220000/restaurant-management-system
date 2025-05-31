@@ -31,7 +31,16 @@ function CartItemCard({ item }) {
             className="cart-item-image"
           />
         </div>
+      </div>
 
+      {/* Item Details */}
+      <div className="cart-item-details">
+        <h3 className="cart-item-name">{item.name}</h3>
+        <p className="cart-item-price">$ {item.price}</p>
+      </div>
+
+      {/* Quantity Controls */}
+      <div className="cart-item-quantity-controls">
         {/* Remove Button */}
         <button
           className="cart-item-remove-btn"
@@ -44,34 +53,26 @@ function CartItemCard({ item }) {
             </svg>
           </div>
         </button>
-      </div>
 
-      {/* Item Details */}
-      <div className="cart-item-details">
-        <h3 className="cart-item-name">{item.name}</h3>
-        <p className="cart-item-size">14''</p>
-        <p className="cart-item-price">$ {item.price}</p>
-      </div>
-
-      {/* Quantity Controls */}
-      <div className="cart-item-quantity-controls">
-        <button
-          className="quantity-btn decrease-btn"
-          onClick={handleDecreaseQuantity}
-          aria-label="Decrease quantity"
-        >
-          <span>-</span>
-        </button>
-        <span className="quantity-display">{item.quantity}</span>
-        <button
-          className="quantity-btn increase-btn"
-          onClick={handleIncreaseQuantity}
-          aria-label="Increase quantity"
-        >
-          <svg width="9" height="8" viewBox="0 0 9 8" fill="none">
-            <path d="M4.5 0V8M0 4H9" stroke="#000000" strokeWidth="1"/>
-          </svg>
-        </button>
+        <div className="quantity-controls-group">
+          <button
+            className="quantity-btn decrease-btn"
+            onClick={handleDecreaseQuantity}
+            aria-label="Decrease quantity"
+          >
+            <span>-</span>
+          </button>
+          <span className="quantity-display">{item.quantity}</span>
+          <button
+            className="quantity-btn increase-btn"
+            onClick={handleIncreaseQuantity}
+            aria-label="Increase quantity"
+          >
+            <svg width="9" height="8" viewBox="0 0 9 8" fill="none">
+              <path d="M4.5 0V8M0 4H9" stroke="#000000" strokeWidth="1"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

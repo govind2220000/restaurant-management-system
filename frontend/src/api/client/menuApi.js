@@ -12,7 +12,7 @@ function transformMenuItem(item) {
     category: item.category,
     description: item.description,
     image: item.image || '/api/placeholder/174/84', // Fallback to placeholder
-    preparationTimeMinutes: item.preparationTimeMinutes,
+    preparationTimeMinutes: item.preparationTimeMinutes, // Using the exact same name as backend
     tax: item.tax
   };
 }

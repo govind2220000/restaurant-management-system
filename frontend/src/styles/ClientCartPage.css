@@ -16,12 +16,13 @@
 /* Cart Items Section */
 .cart-items-section {
   flex-shrink: 0;
-  padding: 30px 0;
+  
 }
 
 /* Cooking Instructions Section */
 .cooking-instructions-section {
   flex-shrink: 0;
+  margin-top: 20px;
   margin-bottom: 30px;
 }
 
@@ -99,7 +100,7 @@
   flex-shrink: 0;
   background: rgba(255, 244, 143, 0.14);
   padding: 8px 16px;
-  margin: 0 -30px 30px -30px;
+  margin: 0 -30px 2px -30px;
 }
 
 .order-summary-content {
@@ -155,7 +156,7 @@
 /* User Details Section */
 .user-details-section {
   flex-shrink: 0;
-  margin: 0 -30px 30px -30px;
+  margin: 0 -30px 2px -30px;
 }
 
 .section-divider {
@@ -182,7 +183,7 @@
   font-size: 16px;
   line-height: 1.3125;
   color: #000000;
-  margin: 0 0 8px 0;
+  margin: 0 0 16px 0;
 }
 
 .user-info {
@@ -197,10 +198,11 @@
 /* Delivery Information Section */
 .delivery-info-section {
   flex-shrink: 0;
-  margin: 0 -30px 30px -30px;
+  margin: 0 -30px 0px -30px;
 }
 
 .delivery-info-content {
+  margin-top: 10px;
   padding: 0 18px;
 }
 
@@ -414,12 +416,12 @@
   }
 
   .order-summary-section {
-    margin: 0 -20px 30px -20px;
+    margin: 0 -30px 2px -30px;
   }
 
   .user-details-section,
   .delivery-info-section {
-    margin: 0 -20px 30px -20px;
+    margin: 0 -30px 2px -30px;
   }
 
   .swipe-order-btn {
@@ -439,12 +441,12 @@
   }
 
   .order-summary-section {
-    margin: 0 -15px 30px -15px;
+    margin: 0 -30px 2px -30px;
   }
 
   .user-details-section,
   .delivery-info-section {
-    margin: 0 -15px 30px -15px;
+    margin: 0 -30px 2px -30px;
   }
 
   .swipe-order-btn {
@@ -473,12 +475,12 @@
   }
 
   .order-summary-section {
-    margin: 0 -10px 30px -10px;
+    margin: 0 -30px 2px -30px;
   }
 
   .user-details-section,
   .delivery-info-section {
-    margin: 0 -10px 30px -10px;
+    margin: 0 -30px 2px -30px;
   }
 
   .swipe-order-btn {
@@ -501,5 +503,95 @@
   .client-cart-page {
     margin: 0 auto;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Updated Delivery Form Styles */
+.delivery-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  line-height: 1.125;
+  color: #000000;
+  transition: border-color 0.3s ease;
+  background: #FFFFFF;
+}
+
+.form-input::placeholder {
+  color: #8C7B7B;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #505050;
+}
+
+.form-input.error {
+  border-color: #FF4D4D;
+}
+
+.error-message {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #FF4D4D;
+  margin-top: -2px;
+}
+
+.address-input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Preparation Time Info */
+.preparation-time-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+ 
+  padding: 12px;
+
+}
+
+.time-icon {
+  font-size: 20px;
+}
+
+.delivery-time-text {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Responsive styles */
+@media (max-width: 428px) {
+  .preparation-time-info {
+    padding: 10px;
+    margin-top: 12px;
+  }
+
+  .time-icon {
+    font-size: 18px;
+  }
+
+  .delivery-time-text {
+    font-size: 13px;
   }
 }

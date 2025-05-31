@@ -48,6 +48,7 @@ function ClientOrderMenuPage() {
     ? filteredMenuItems // If searching, show ALL matching items across categories
     : filteredMenuItems.filter(item => item.category === selectedCategory); // If not searching, filter by category
 
+  console.log(filteredItems);
   // Removed debug logging - keeping code clean
 
   // Handle adding items to cart - now uses context
@@ -132,6 +133,7 @@ function ClientOrderMenuPage() {
                   price={item.price}
                   image={item.image}
                   tax={item.tax}
+                  preparationTimeMinutes={item.preparationTimeMinutes}
                   onAddItem={handleAddItem}
                 />
               ))
