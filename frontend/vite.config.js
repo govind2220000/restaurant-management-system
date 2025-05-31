@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   define: {
-    // Define environment variables that will be available at build time
+    
     'import.meta.env.VITE_BACKEND_URL': JSON.stringify("https://restaurant-management-system-q7hi.onrender.com")
   }
 })
