@@ -9,6 +9,8 @@
   justify-content: center;
   align-items: flex-end;
   z-index: 1000;
+  height: var(--viewport-height, 100vh);
+  transition: height 0.15s ease-out;
 }
 
 .cooking-instructions-modal {
@@ -19,6 +21,9 @@
   padding: 28px;
   position: relative;
   animation: slideUp 0.3s ease-out;
+  max-height: calc(var(--viewport-height, 100vh) * 0.9);
+  overflow-y: auto;
+  transition: max-height 0.15s ease-out;
 }
 
 @keyframes slideUp {
@@ -135,10 +140,17 @@
 
 /* Mobile responsiveness */
 @media (max-width: 428px) {
+  .modal-overlay {
+    align-items: flex-end;
+    position: fixed;
+  }
+
   .cooking-instructions-modal {
     width: 100%;
     border-radius: 25px 25px 0 0;
     padding: 20px;
+    position: relative;
+    max-height: calc(var(--viewport-height, 100vh) * 0.8);
   }
 
   .modal-content h2 {
