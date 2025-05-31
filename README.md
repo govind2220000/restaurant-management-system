@@ -72,12 +72,7 @@ A full-stack food ordering application with separate user and admin interfaces, 
    npm install
    ```
 
-3. Create a `.env` file in the frontend directory:
-   ```env
-   VITE_API_URL=http://localhost:8000
-   ```
-
-4. Start the development server:
+3. Start the development server:
    ```bash
    npm run dev
    ```
