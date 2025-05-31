@@ -14,12 +14,12 @@
 /* Section 1: Categories */
 .categories-section {
   flex-shrink: 0;
-  padding: 0 30px 30px 30px;
+  padding: 0 15px 15px 15px;
 }
 
 .categories-container {
   display: flex;
-  gap: 17px;
+  gap: 10px;
   overflow-x: auto;
   scrollbar-width: none;
   padding-bottom: 10px;
@@ -36,7 +36,7 @@
   cursor: pointer;
   padding: 0;
   transition: all 0.3s ease;
-  width: 60px;
+  width: 70px;
 }
 
 .category-btn1.active {

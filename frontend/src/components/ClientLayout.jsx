@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { fetchMenuItems } from '../api';
 import '../styles/Client.css';
 import SearchIcon from '../assets/icons/SearchIcon';
@@ -27,6 +27,12 @@ function ClientLayout() {
   const [cartItems, setCartItems] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Reset search query when route changes
+  useEffect(() => {
+    setSearchQuery('');
+  }, [location.pathname]);
 
   // Load menu items when component mounts
   useEffect(() => {
