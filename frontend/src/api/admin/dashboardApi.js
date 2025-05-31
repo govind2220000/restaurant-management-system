@@ -311,11 +311,11 @@ function transformChefData(chefSummary) {
  * @returns {string} - Formatted revenue string
  */
 function formatRevenue(revenue) {
-    if (revenue >= 1000) {
-      return `${Math.round(revenue / 1000)}K`;
-    }
-    return revenue.toString();
-  }
+  return new Intl.NumberFormat('en-IN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(revenue);
+}
 
 /**
  * Get dashboard analytics (alias for getAnalytics for backward compatibility)
