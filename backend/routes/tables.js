@@ -69,6 +69,50 @@ router.get('/search/:query', async (req, res) => {
   }
 });
 
+// Search table by table number
+router.get('/number/:tableNumber', async (req, res) => {
+  try {
+    const tableNumber = req.params.tableNumber.toUpperCase();
+    // Add 'T' prefix if not provided
+    const formattedTableNumber = tableNumber.startsWith('T') ? tableNumber : `T${tableNumber}`;
+    
+    const table = await Table.findOne({ tableNumber: formattedTableNumber }).populate('currentOrder');
+    
+    if (!table) {
+      return res.status(404).json({
+        success: false,
+        message: 'Table not found'
+      });
+    }
+    
+    // Format the response to match frontend expectations
+    const formattedTable = {
+      id: table._id,
+      number: table.tableNumber.replace('T', ''),
+      name: table.name,
+      capacity: table.capacity,
+      seats: table.capacity,
+      status: table.isReserved ? 'reserved' : 'available',
+      isReserved: table.isReserved,
+      currentOrder: table.currentOrder,
+      createdAt: table.createdAt,
+      updatedAt: table.updatedAt
+    };
+
+    res.json({
+      success: true,
+      data: formattedTable
+    });
+  } catch (err) {
+    console.error('Error searching table by number:', err);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to search table',
+      message: err.message
+    });
+  }
+});
+
 // Create a new table
 router.post('/', async (req, res) => {
   const session = await mongoose.startSession();
