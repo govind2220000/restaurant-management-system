@@ -9,6 +9,28 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health Check Endpoint
+app.get('/api/health', (req, res) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now(),
+    mongoConnection: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    systemInfo: {
+      nodeVersion: process.version,
+      platform: process.platform,
+      memoryUsage: process.memoryUsage(),
+    }
+  };
+  
+  try {
+    res.status(200).json(healthcheck);
+  } catch (error) {
+    healthcheck.message = error;
+    res.status(503).json(healthcheck);
+  }
+});
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
