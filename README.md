@@ -245,6 +245,5 @@ A full-stack food ordering application with separate user and admin interfaces, 
 ### Backend Variables
 - `PORT`: Server port number
 - `MONGODB_URI`: MongoDB connection string
-- `JWT_SECRET`: Secret key for JWT token generation
 
 
