@@ -296,6 +296,9 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
 .swipe-order-btn {
@@ -305,8 +308,8 @@
   border: 1px solid #949494;
   border-radius: 57px;
   background: transparent;
-  cursor: pointer;
   overflow: hidden;
+  cursor: default;
 }
 
 .swipe-btn-bg {
@@ -315,8 +318,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 190px;
+  transition: background 0.3s ease;
 }
 
 .swipe-btn-circle {
@@ -330,6 +332,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.1s ease;
+  z-index: 2;
+}
+
+.swipe-btn-circle:active {
+  cursor: grabbing;
 }
 
 .swipe-btn-text {
@@ -342,12 +350,14 @@
   font-size: 18px;
   line-height: 1.21;
   color: #949494;
-  margin-left: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .swipe-order-btn.placing-order {
   opacity: 0.7;
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .swipe-order-btn.placing-order .swipe-btn-text {

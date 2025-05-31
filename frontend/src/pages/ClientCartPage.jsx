@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMenuContext } from '../components/ClientLayout';
 import CartItemCard from '../components/CartItemCard';
@@ -35,6 +35,23 @@ function ClientCartPage() {
     phone: '',
     address: ''
   });
+
+  // Add new state and refs for swipe functionality
+  const [swipeProgress, setSwipeProgress] = useState(0);
+  const swipeButtonRef = useRef(null);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const currentXRef = useRef(0);
+
+  useEffect(() => {
+    if (swipeProgress >= 100) {
+      handlePlaceOrder();
+      // Reset swipe after small delay
+      setTimeout(() => {
+        setSwipeProgress(0);
+      }, 300);
+    }
+  }, [swipeProgress]);
 
   // Calculate total preparation time
   const getTotalPreparationTime = () => {
@@ -158,6 +175,54 @@ function ClientCartPage() {
     } finally {
       setIsPlacingOrder(false);
     }
+  };
+
+  const handleSwipeStart = (e) => {
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    isDraggingRef.current = true;
+    startXRef.current = clientX;
+    currentXRef.current = clientX;
+
+    // Add event listeners for move and end events
+    if (e.type.includes('mouse')) {
+      document.addEventListener('mousemove', handleSwipeMove);
+      document.addEventListener('mouseup', handleSwipeEnd);
+    } else {
+      document.addEventListener('touchmove', handleSwipeMove);
+      document.addEventListener('touchend', handleSwipeEnd);
+    }
+  };
+
+  const handleSwipeMove = (e) => {
+    if (!isDraggingRef.current) return;
+
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    currentXRef.current = clientX;
+
+    const buttonWidth = swipeButtonRef.current?.offsetWidth || 0;
+    const deltaX = currentXRef.current - startXRef.current;
+    const maxDeltaX = buttonWidth - 87; // 87px is the circle width
+    const progress = Math.min(Math.max((deltaX / maxDeltaX) * 100, 0), 100);
+    
+    setSwipeProgress(progress);
+
+    // Prevent default to stop scrolling on mobile
+    e.preventDefault();
+  };
+
+  const handleSwipeEnd = () => {
+    isDraggingRef.current = false;
+    
+    // If not swiped far enough, reset
+    if (swipeProgress < 100) {
+      setSwipeProgress(0);
+    }
+
+    // Remove event listeners
+    document.removeEventListener('mousemove', handleSwipeMove);
+    document.removeEventListener('mouseup', handleSwipeEnd);
+    document.removeEventListener('touchmove', handleSwipeMove);
+    document.removeEventListener('touchend', handleSwipeEnd);
   };
 
   // Empty cart state
@@ -314,15 +379,27 @@ function ClientCartPage() {
         </div>
       )}
 
-      {/* Swipe to Order Button */}
+      {/* Updated Swipe to Order Button */}
       <div className="order-action-section">
-        <button
+        <div
           className={`swipe-order-btn ${isPlacingOrder ? 'placing-order' : ''}`}
-          onClick={handlePlaceOrder}
-          disabled={isPlacingOrder}
+          ref={swipeButtonRef}
         >
-          <div className="swipe-btn-bg"></div>
-          <div className="swipe-btn-circle">
+          <div 
+            className="swipe-btn-bg"
+            style={{ 
+              background: `linear-gradient(to right, rgba(80, 80, 80, 0.1) ${swipeProgress}%, rgba(255, 255, 255, 0.1) ${swipeProgress}%)`
+            }}
+          ></div>
+          <div 
+            className="swipe-btn-circle"
+            style={{ 
+              transform: `translateX(${swipeProgress * ((swipeButtonRef.current?.offsetWidth || 390) - 105) / 100}px)`,
+              cursor: isPlacingOrder ? 'default' : 'grab'
+            }}
+            onMouseDown={!isPlacingOrder ? handleSwipeStart : undefined}
+            onTouchStart={!isPlacingOrder ? handleSwipeStart : undefined}
+          >
             {isPlacingOrder ? (
               <div className="loading-spinner">⏳</div>
             ) : (
@@ -334,7 +411,7 @@ function ClientCartPage() {
           <span className="swipe-btn-text">
             {isPlacingOrder ? 'Placing Order...' : 'Swipe to Order'}
           </span>
-        </button>
+        </div>
       </div>
     </div>
   );
